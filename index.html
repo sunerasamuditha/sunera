@@ -16,6 +16,8 @@
     <div class="parallax parallax-3"></div>
     <div class="scanline"></div>
   </div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <header class="site-header" id="top">
     <div class="logo-mark" aria-label="Sunera personal logotype">
@@ -38,6 +40,7 @@
 
   <main>
     <section class="hero section" id="hero">
+      <div class="hero-grid" aria-hidden="true" data-parallax="26"></div>
       <div class="hero-content">
         <p class="eyebrow">AI/ML Engineer · Real-world Intelligent Systems</p>
         <h1>
@@ -48,9 +51,13 @@
           I design, deploy, and monitor machine learning systems that matter: vision-led automation,
           streaming anomaly detection, and learning experiences that adapt in real time.
         </p>
+        <div class="floating-badge" data-parallax="32">
+          <span class="chip">AI in the wild</span>
+          <p>Edge + cloud synergy with observability baked in.</p>
+        </div>
         <div class="cta-group">
-          <a class="btn primary" href="#projects">View portfolio</a>
-          <a class="btn ghost" href="#contact">Book a build session</a>
+          <a class="btn primary magnetic" href="#projects">View portfolio</a>
+          <a class="btn ghost magnetic" href="#contact">Book a build session</a>
         </div>
         <div class="hero-meta">
           <div class="meta-card tilt" data-tilt>
@@ -72,12 +79,16 @@
         </div>
       </div>
       <div class="hero-visual">
+        <div class="grid-cage" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+        </div>
         <div class="orbital">
           <div class="orbital-core"></div>
           <div class="orbital-ring ring-1"></div>
           <div class="orbital-ring ring-2"></div>
           <div class="orbital-pulse"></div>
         </div>
+        <div class="floating-shard" aria-hidden="true" data-parallax="18"></div>
         <div class="floating-card tilt" data-tilt>
           <p class="chip">Realtime ML Ops</p>
           <h3>Signals dashboard</h3>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunera Samuditha | AI/ML Engineer v2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <div class="cursor-follower"></div>
+    <div class="noise-overlay"></div>
+
+    <nav class="fixed-nav">
+        <div class="logo">SUNERA<span class="dot">.</span>AI</div>
+        <div class="nav-links">
+            <a href="#hero" class="active">Neural Link</a>
+            <a href="#vision">Vision</a>
+            <a href="#projects">Deployments</a>
+            <a href="#contact">Connect</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="section hero-section">
+            <div class="content-wrapper">
+                <div class="hero-text">
+                    <p class="subtitle">System Online // v2.0.4</p>
+                    <h1 class="glitch-text" data-text="ARCHITECTING INTELLIGENCE">ARCHITECTING<br>INTELLIGENCE</h1>
+                    <p class="description">
+                        I bridge the gap between theoretical models and production-grade AI systems. 
+                        Specializing in Computer Vision, NLP, and Real-time Inference.
+                    </p>
+                    <div class="cta-container">
+                        <a href="#projects" class="btn-primary">Initialize Protocol <span class="arrow">→</span></a>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="model-accuracy">98.4%</span>
+                        <span class="stat-label">Model Accuracy</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="inference-time">12ms</span>
+                        <span class="stat-label">Inference Time</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">System Uptime</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="section vision-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2>The Vision</h2>
+                </div>
+                <div class="vision-grid">
+                    <div class="vision-card glass-panel" data-tilt>
+                        <div class="card-icon">👁️</div>
+                        <h3>Computer Vision</h3>
+                        <p>From object detection to semantic segmentation, building eyes for machines to understand the world.</p>
+                    </div>
+                    <div class="vision-card glass-panel" data-tilt>
+                        <div class="card-icon">🧠</div>
+                        <h3>Deep Learning</h3>
+                        <p>Architecting complex neural networks that learn, adapt, and evolve with data.</p>
+                    </div>
+                    <div class="vision-card glass-panel" data-tilt>
+                        <div class="card-icon">⚡</div>
+                        <h3>Edge AI</h3>
+                        <p>Optimizing models for low-latency, high-performance execution on edge devices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects-section">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2>Active Deployments</h2>
+                </div>
+                <div class="project-showcase">
+                    <!-- Project 1 -->
+                    <div class="project-row">
+                        <div class="project-visual">
+                            <div class="project-3d-view" id="proj-1-view"></div>
+                        </div>
+                        <div class="project-info">
+                            <span class="project-type">Computer Vision // Manufacturing</span>
+                            <h3>Automated Defect Detection</h3>
+                            <p>Real-time quality control system using YOLOv8 and TensorRT. Reduced false positives by 40% and increased throughput by 200%.</p>
+                            <ul class="tech-stack">
+                                <li>Python</li>
+                                <li>PyTorch</li>
+                                <li>OpenCV</li>
+                                <li>Docker</li>
+                            </ul>
+                            <a href="#" class="project-link">View Case Study</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-row reverse">
+                        <div class="project-visual">
+                            <div class="project-3d-view" id="proj-2-view"></div>
+                        </div>
+                        <div class="project-info">
+                            <span class="project-type">NLP // FinTech</span>
+                            <h3>Sentiment Analysis Engine</h3>
+                            <p>Processing millions of financial news articles daily to predict market trends using BERT-based transformers.</p>
+                            <ul class="tech-stack">
+                                <li>HuggingFace</li>
+                                <li>FastAPI</li>
+                                <li>Redis</li>
+                                <li>AWS SageMaker</li>
+                            </ul>
+                            <a href="#" class="project-link">View Case Study</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="content-wrapper">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2>Initiate Handshake</h2>
+                        <p>Ready to integrate AI into your ecosystem? Let's discuss architecture, data strategy, and deployment.</p>
+                        <div class="contact-methods">
+                            <a href="mailto:hello@sunera.ai" class="contact-item">
+                                <span class="icon">✉</span> hello@sunera.ai
+                            </a>
+                            <a href="#" class="contact-item">
+                                <span class="icon">💼</span> LinkedIn
+                            </a>
+                            <a href="#" class="contact-item">
+                                <span class="icon">🐙</span> GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <form class="contact-form glass-panel">
+                        <div class="form-group">
+                            <label>Identity</label>
+                            <input type="text" placeholder="Name / Organization">
+                        </div>
+                        <div class="form-group">
+                            <label>Coordinates</label>
+                            <input type="email" placeholder="Email Address">
+                        </div>
+                        <div class="form-group">
+                            <label>Transmission</label>
+                            <textarea placeholder="Project details..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Transmission</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

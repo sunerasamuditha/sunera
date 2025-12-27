@@ -28,6 +28,26 @@ tiltItems.forEach(card => {
   });
 });
 
+// Cursor glow + scroll progress
+const cursorGlow = document.querySelector('.cursor-glow');
+const progressBar = document.querySelector('.scroll-progress');
+
+window.addEventListener('pointermove', (e) => {
+  if (!cursorGlow) return;
+  cursorGlow.style.left = `${e.clientX}px`;
+  cursorGlow.style.top = `${e.clientY}px`;
+});
+
+const updateProgress = () => {
+  if (!progressBar) return;
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = window.scrollY;
+  const pct = scrollable > 0 ? (scrolled / scrollable) * 100 : 0;
+  progressBar.style.width = `${pct}%`;
+};
+window.addEventListener('scroll', updateProgress);
+updateProgress();
+
 // Parallax background motion
 const parallaxLayers = document.querySelectorAll('.parallax');
 window.addEventListener('scroll', () => {
@@ -35,6 +55,34 @@ window.addEventListener('scroll', () => {
   parallaxLayers.forEach((layer, idx) => {
     const depth = (idx + 1) * 10;
     layer.style.transform = `translate3d(0, ${scrollY / depth}px, 0)`;
+  });
+});
+
+// Parallax for foreground elements
+const parallaxItems = document.querySelectorAll('[data-parallax]');
+const runParallax = () => {
+  const scrollY = window.scrollY;
+  parallaxItems.forEach((item) => {
+    const depth = Number(item.dataset.parallax) || 24;
+    const offset = scrollY / depth;
+    item.style.transform = `translate3d(0, ${offset}px, 0)`;
+  });
+};
+window.addEventListener('scroll', runParallax);
+runParallax();
+
+// Magnetic buttons
+const magnetics = document.querySelectorAll('.magnetic');
+magnetics.forEach((el) => {
+  const strength = 12;
+  el.addEventListener('mousemove', (e) => {
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    el.style.transform = `translate(${(x / rect.width) * strength}px, ${(y / rect.height) * strength}px)`;
+  });
+  el.addEventListener('mouseleave', () => {
+    el.style.transform = 'translate(0, 0)';
   });
 });
 
@@ -151,7 +199,8 @@ const revealables = [
   ...document.querySelectorAll('.lab-card'),
   ...document.querySelectorAll('.meta-card'),
   ...document.querySelectorAll('.holo-card'),
-  ...document.querySelectorAll('.exp-detail')
+  ...document.querySelectorAll('.exp-detail'),
+  ...document.querySelectorAll('.floating-card')
 ];
 
 revealables.forEach(el => el.classList.add('reveal'));
