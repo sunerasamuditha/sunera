@@ -3,229 +3,967 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunera Samuditha</title>
+    <meta name="description" content="Sunera Samuditha - AI & Machine Learning Engineer Portfolio. Building intelligent systems that transform data into insights.">
+    <title>Sunera Samuditha | AI & ML Engineer</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Three.js for 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- Lenis for smooth scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor-wrapper">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+        <div class="cursor-text">View</div>
+    </div>
 
-    <header class="header-area header-sticky">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <nav class="main-nav">
-                <!-- Logo Start -->
-                <a href="#" class="logo">
-                  <h1 style="text-transform: none;">SUNERA</h1>
-                </a>
-                <!-- Logo End -->
-      
-                <!-- Menu Trigger for Mobile -->
-                <a class="menu-trigger">
-                  <span>☰ Menu</span>
-                </a>
-      
-                <!-- Navigation Menu -->
-                <ul class="nav">
-                  <li class="scroll-to-section"><a href="#about">About</a></li>
-                  <li class="scroll-to-section"><a href="#work-experience">Experinces</a></li>
-                  <li class="scroll-to-section"><a href="#projects">Projects</a></li>
-                  <li class="scroll-to-section"><a href="#skills">Skills</a></li>
-                  <li class="scroll-to-section"><a href="#contact">Contact</a></li>
-                </ul>
-              </nav>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="neural-loader">
+                <div class="neural-node"></div>
+                <div class="neural-node"></div>
+                <div class="neural-node"></div>
+                <div class="neural-node"></div>
+                <div class="neural-node"></div>
+                <svg class="neural-connections" viewBox="0 0 100 100">
+                    <line class="neural-line" x1="20" y1="50" x2="50" y2="20"></line>
+                    <line class="neural-line" x1="20" y1="50" x2="50" y2="80"></line>
+                    <line class="neural-line" x1="50" y1="20" x2="80" y2="50"></line>
+                    <line class="neural-line" x1="50" y1="80" x2="80" y2="50"></line>
+                </svg>
             </div>
-          </div>
+            <div class="preloader-text">
+                <span class="preloader-label">Initializing Neural Network</span>
+                <div class="preloader-progress">
+                    <div class="preloader-bar"></div>
+                </div>
+                <span class="preloader-percentage">0%</span>
+            </div>
         </div>
-      </header>
-      
-      <!-- Header Area End -->  
-    
+    </div>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <h5>Hello, my name is </h5>
-            <h1><span>Sunera Samuditha</span>.</h1>
-            <p>A passionate computer engineering undergraduate crafting innovative solutions.</p>
-            <a href="#projects" class="cta">See My Work</a>
-        </div>
+    <!-- 3D Canvas Background -->
+    <canvas id="neural-canvas"></canvas>
+
+    <!-- Floating AI Elements -->
+    <div class="floating-elements">
+        <div class="float-element data-point" style="--delay: 0s; --x: 10%; --y: 20%;"></div>
+        <div class="float-element data-point" style="--delay: 1s; --x: 85%; --y: 15%;"></div>
+        <div class="float-element data-point" style="--delay: 2s; --x: 70%; --y: 75%;"></div>
+        <div class="float-element data-point" style="--delay: 0.5s; --x: 15%; --y: 80%;"></div>
+        <div class="float-element code-bracket" style="--delay: 1.5s; --x: 90%; --y: 50%;">{}</div>
+        <div class="float-element code-bracket" style="--delay: 2.5s; --x: 5%; --y: 50%;">[]</div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 50 50" class="logo-svg">
+                        <circle class="logo-circle" cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle class="logo-dot" cx="25" cy="15" r="3" fill="currentColor"/>
+                        <circle class="logo-dot" cx="15" cy="30" r="3" fill="currentColor"/>
+                        <circle class="logo-dot" cx="35" cy="30" r="3" fill="currentColor"/>
+                        <line class="logo-line" x1="25" y1="15" x2="15" y2="30" stroke="currentColor" stroke-width="1.5"/>
+                        <line class="logo-line" x1="25" y1="15" x2="35" y2="30" stroke="currentColor" stroke-width="1.5"/>
+                        <line class="logo-line" x1="15" y1="30" x2="35" y2="30" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">SUNERA</span>
+            </a>
+
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#about" class="nav-link"><span class="nav-number">01.</span>About</a></li>
+                    <li class="nav-item"><a href="#expertise" class="nav-link"><span class="nav-number">02.</span>Expertise</a></li>
+                    <li class="nav-item"><a href="#experience" class="nav-link"><span class="nav-number">03.</span>Experience</a></li>
+                    <li class="nav-item"><a href="#projects" class="nav-link"><span class="nav-number">04.</span>Projects</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link"><span class="nav-number">05.</span>Contact</a></li>
+                </ul>
+            </div>
+
+            <a href="#contact" class="nav-cta magnetic-btn">
+                <span>Let's Connect</span>
+                <div class="btn-glow"></div>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </nav>
     </header>
 
-    <!-- About Me Section -->
-    <section class="about" id="about">
-        <div class="about-container">
-            <div class="about-content">
-                <p class="section-number">01.</p>
-                <h2 class="section-title">About Me</h2>
-                <p class="about-text">
-                    Hi there! My name is Sunera Samuditha, and I am a passionate computer engineering undergraduate who thrives on building innovative and impactful projects. My interest in technology and problem-solving sparked early, and I've been channeling it into creating smarter, more efficient systems ever since.
-                </p>
-                <p class="about-text">
-                    Currently, I’m diving deep into <span class="highlight">web development</span> as part of my 1st-year coursework at KDU, while also managing exciting projects like <span class="highlight">LEARNY</span>, an online learning platform my team and I are developing. Working on this project has enhanced my skills in database management, PHP, and Bootstrap-based frontend design.
-                </p>
-                <p class="about-text">
-                    One of my proudest achievements is being part of the <span class="highlight">DrySmart+ Rain Safe Drying System</span> project, where my team and I developed a smart, weather-safe clothes drying solution using IoT technology. This system integrates real-time weather monitoring, rain detection, and automated clothes movement mechanisms to ensure efficiency and energy conservation.
-                </p>
-                <p class="about-text">
-                    Beyond academics, I’ve had the privilege of contributing to <span class="highlight">STEM Education</span> projects like Ganitha Saviya, <span class="highlight">impacting over 80,000 students</span> through seminars and evaluations across 25 districts. I’m also shaping future leaders by <span class="highlight">teaching leadership</span> to inspire the younger generation and actively participating in the IEEE student chapter at KDU.
-                </p>
-                <p class="about-text">Here are a few technologies I’ve been working with recently:</p>
-                <ul class="technologies">
-                    <li>JavaScript</li>
-                    <li>React</li>
-                    <li>OOP</li>
-                    <li>Proteus</li>
-                    <li>HTML5</li>
-                    <li>Photoshop</li>
-                </ul>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-list">
+                <li><a href="#about" class="mobile-nav-link"><span>01.</span>About</a></li>
+                <li><a href="#expertise" class="mobile-nav-link"><span>02.</span>Expertise</a></li>
+                <li><a href="#experience" class="mobile-nav-link"><span>03.</span>Experience</a></li>
+                <li><a href="#projects" class="mobile-nav-link"><span>04.</span>Projects</a></li>
+                <li><a href="#contact" class="mobile-nav-link"><span>05.</span>Contact</a></li>
+            </ul>
+            <a href="#contact" class="mobile-cta-btn">Get In Touch</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-elements">
+            <div class="hero-gradient-orb orb-1"></div>
+            <div class="hero-gradient-orb orb-2"></div>
+            <div class="hero-grid-lines"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-intro">
+                <div class="hero-tag">
+                    <span class="tag-icon">⚡</span>
+                    <span class="tag-text">AI & Machine Learning Engineer</span>
+                </div>
             </div>
-            <div class="about-image">
-                <img src="./images/me.jpg" alt="Profile Picture">
+
+            <div class="hero-title-wrapper">
+                <h1 class="hero-title">
+                    <span class="title-line">
+                        <span class="word-wrapper"><span class="word">Building</span></span>
+                        <span class="word-wrapper"><span class="word">the</span></span>
+                        <span class="word-wrapper"><span class="word highlight-gradient">Future</span></span>
+                    </span>
+                    <span class="title-line">
+                        <span class="word-wrapper"><span class="word">with</span></span>
+                        <span class="word-wrapper"><span class="word highlight-gradient">Intelligent</span></span>
+                    </span>
+                    <span class="title-line">
+                        <span class="word-wrapper"><span class="word highlight-gradient">Systems</span></span>
+                    </span>
+                </h1>
+            </div>
+
+            <p class="hero-description">
+                Hi, I'm <span class="text-accent">Sunera Samuditha</span> — a passionate AI/ML engineer 
+                crafting intelligent solutions that transform complex data into actionable insights. 
+                Specializing in deep learning, neural networks, and cutting-edge ML architectures.
+            </p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="80000">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Students Impacted</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="25">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Districts Covered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="10">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">AI/ML Projects</span>
+                </div>
+            </div>
+
+            <div class="hero-cta-group">
+                <a href="#projects" class="cta-primary magnetic-btn">
+                    <span class="btn-text">Explore My Work</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                        </svg>
+                    </span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#about" class="cta-secondary magnetic-btn">
+                    <span class="btn-text">Learn More</span>
+                    <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="ai-brain-container">
+                <div class="brain-ring ring-1"></div>
+                <div class="brain-ring ring-2"></div>
+                <div class="brain-ring ring-3"></div>
+                <div class="brain-core">
+                    <div class="core-pulse"></div>
+                </div>
+                <div class="brain-particles">
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span class="scroll-text">Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">
+                    <span class="title-text">About Me</span>
+                    <div class="title-line"></div>
+                </h2>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text-col">
+                    <div class="about-intro reveal-text">
+                        <p class="large-text">
+                            I'm a <span class="text-accent">Computer Engineering undergraduate</span> with a deep passion 
+                            for Artificial Intelligence and Machine Learning. My journey in tech is driven by the desire 
+                            to build systems that think, learn, and evolve.
+                        </p>
+                    </div>
+
+                    <div class="about-details reveal-text">
+                        <p>
+                            Currently exploring the frontiers of <span class="text-accent">deep learning</span>, 
+                            <span class="text-accent">neural network architectures</span>, and 
+                            <span class="text-accent">intelligent automation</span>. I believe AI has the potential 
+                            to revolutionize every aspect of our lives, and I'm committed to being at the forefront 
+                            of this transformation.
+                        </p>
+                        <p>
+                            Beyond algorithms and models, I'm passionate about <span class="text-accent">STEM education</span>, 
+                            having impacted over 80,000 students through the Ganitha Saviya initiative across 25 districts. 
+                            I lead with purpose, mentor with passion, and code with precision.
+                        </p>
+                    </div>
+
+                    <div class="tech-stack reveal-text">
+                        <h3 class="stack-title">Core Technologies</h3>
+                        <div class="tech-grid">
+                            <div class="tech-item">
+                                <div class="tech-icon">🧠</div>
+                                <span>TensorFlow</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">🔥</div>
+                                <span>PyTorch</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">🐍</div>
+                                <span>Python</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">📊</div>
+                                <span>Scikit-learn</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">🤖</div>
+                                <span>OpenCV</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">⚡</div>
+                                <span>Keras</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">📈</div>
+                                <span>Pandas</span>
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-icon">🔢</div>
+                                <span>NumPy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-visual-col">
+                    <div class="about-image-wrapper parallax-element">
+                        <div class="image-frame">
+                            <img src="./images/me.jpg" alt="Sunera Samuditha" class="about-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="image-decoration">
+                            <div class="deco-line deco-line-1"></div>
+                            <div class="deco-line deco-line-2"></div>
+                            <div class="deco-corner"></div>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-1 parallax-element" data-speed="0.1">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <span class="card-label">Focus Area</span>
+                            <span class="card-value">Deep Learning</span>
+                        </div>
+                    </div>
+
+                    <div class="floating-card card-2 parallax-element" data-speed="-0.1">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-content">
+                            <span class="card-label">Currently</span>
+                            <span class="card-value">Building AI Systems</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!--work section-->
-    <section id="work-experience" class="work-experience" >
-        <p class="section-number">02.</p>
-                <h2 class="section-title">My Work Experiences</h2>
-        <div class="work-container">
-            <!-- Dropdown Button -->
-    <div class="dropdown">
-        <button class="dropdown-button">Select</button>
-      </div>
-          <ul class="companies">
-            <li class="active" data-role="learny">LEARNY</li>
-            <li data-role="drysmart">DrySmart+</li>
-            <li data-role="rekaira">Reka Ira Media</li>
-            <li data-role="stem">Nat Co STEM</li>
-            <li data-role="leader">Rsrc Leadership</li>
-            <li data-role="popcorn">Popcorn Teams</li>           
-            
-          </ul>
-          <div class="details">
-            <h3>Project Manager <span>@ LEARNY</span></h3>
-            <p class="date">August 24 - Present</p>
-            <ul>
-              <li>Led the development and implementation of LEARNY, a user-friendly online learning platform, utilizing Bootstrap templates and integrating multiple databases to enhance functionality.</li>
-              <li>Collaborated with a team of four to design and deploy key features, including course management and instructor interfaces, ensuring robust functionality and user experience.</li>
-              <li>Oversaw the project's end-to-end lifecycle, from initial concept and design to final delivery, meeting academic requirements and user expectations.</li>
-              <li>Facilitated effective communication among team members, ensuring alignment with project goals and deadlines.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-    <section id="projects">
-        <p class="section-number">03.</p>
-                <h2 class="section-title">Somethings I've Built</h2>
-        <div class="project">
-          <div class="project-content">
-            <h4 class="featured-project">Featured Project</h4>
-            <h2>LEARNY - Online Learning Platform</h2>
-            <p class="description">
-                A simple, user-friendly online learning platform for course management and e-learning.Built with Bootstrap and PHP, designed for seamless access and enhanced functionality.
-                          </p>
-            <div class="technologies">
-              <span>VS Code</span>
-              <span>HTML</span>
-              <span>JavaScript</span>
-              <span>PHP</span>
-              <span>CSS</span>
-              <span>SQL</span>
+    <!-- Expertise Section -->
+    <section class="expertise-section" id="expertise">
+        <div class="section-container">
+            <div class="section-header centered">
+                <span class="section-number">02</span>
+                <h2 class="section-title">
+                    <span class="title-text">AI/ML Expertise</span>
+                    <div class="title-line"></div>
+                </h2>
+                <p class="section-subtitle">Specialized domains where I create intelligent solutions</p>
             </div>
-          </div>
-          <div class="project-preview">
-            <img src="./images/learny.png" alt="Learny">
-          </div>
-        </div>
-    
-        <div class="project">
-          <div class="project-content">
-            <h4 class="featured-project">Featured Project</h4>
-            <h2>Drysmart - Rain Safe Drying System</h2>
-            <p class="description">
-                A smart, weather-safe clothes drying system powered by IoT technology. Features real-time weather monitoring, rain detection, and automated drying mechanisms for efficient, hassle-free drying.
-            </p>
-            <div class="technologies">
-              <span>Proteus</span>
-              <span>Tinker CAD</span>
-              <span>HTML</span>
-              <span>Arduino IDE</span>
-              <span>C++</span>
-              
-            </div>
-          </div>
-          <div class="project-preview">
-            <img src="./images/drysmart.png" alt="drysmart">
-          </div>
-        </div>
 
-        <div class="project">
-            <div class="project-content">
-              <h4 class="featured-project">Work In-Progress</h4>
-              <h2>GS National Progress Dash Board</h2>
-              <p class="description">
-                An intuitive dashboard for the Ganitha Saviya project, enabling real-time tracking of progress across 25 districts. Features data visualization, feedback management, and performance monitoring to optimize STEM education delivery.
-              </p>
-              <div class="technologies">
-                <span>Figma</span>
-                <span>React</span>
-                <span>SQL</span>
-                <span>Django API</span>
-                <span>Heroku</span>
-              </div>
-            </div>
-            <div class="project-preview">
-              <img src="./images/stem.png" alt="STEM dashboard">
-            </div>
-          </div>
-      </section>
+            <div class="expertise-grid">
+                <div class="expertise-card" data-tilt>
+                    <div class="card-bg"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Deep Learning</h3>
+                        <p class="card-description">
+                            Designing and training neural networks including CNNs, RNNs, Transformers, 
+                            and GANs for complex pattern recognition and generation tasks.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">CNN</span>
+                            <span class="tag">RNN</span>
+                            <span class="tag">Transformers</span>
+                        </div>
+                    </div>
+                </div>
 
-      <section id="skills">
-        <p class="section-number">04.</p>
-                <h2 class="section-title">My Techstack & Skills</h2>
-      <section class="skills-banner">
-        <div class="skills-container">
-          <div class="skills">
-            <div class="skill-item">Web Development | HTML CSS JavaScript PHP SQL</div>
-            <div class="skill-item">Project Management | Agile SCRUM</div>
-            <div class="skill-item">Leadership & Grooming | Team Building</div>
-            <div class="skill-item">Creative Strategy & Media | Graphic Designing Content Creation</div>
-          
-            <div class="skill-item">Web Development | HTML CSS JavaScript PHP SQL</div>
-            <div class="skill-item">Project Management | Agile SCRUM</div>
-            <div class="skill-item">Leadership & Grooming | Team Building</div>
-            <div class="skill-item">Creative Strategy & Media | Graphic Designing Content Creation</div>
+                <div class="expertise-card" data-tilt>
+                    <div class="card-bg"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 1V5M12 19V23M23 12H19M5 12H1" stroke="currentColor" stroke-width="2"/>
+                                <path d="M18.36 5.64L15.54 8.46M8.46 15.54L5.64 18.36" stroke="currentColor" stroke-width="2"/>
+                                <path d="M18.36 18.36L15.54 15.54M8.46 8.46L5.64 5.64" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Computer Vision</h3>
+                        <p class="card-description">
+                            Building intelligent visual perception systems for image classification, 
+                            object detection, segmentation, and real-time video analysis.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">OpenCV</span>
+                            <span class="tag">YOLO</span>
+                            <span class="tag">Image Processing</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="skill-item">Web Development | HTML CSS JavaScript PHP SQL</div>
-            <div class="skill-item">Project Management | Agile SCRUM</div>
-            <div class="skill-item">Leadership & Grooming | Team Building</div>
-            <div class="skill-item">Creative Strategy & Media | Graphic Designing Content Creation</div>
+                <div class="expertise-card" data-tilt>
+                    <div class="card-bg"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 15V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V15" stroke="currentColor" stroke-width="2"/>
+                                <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 3V15" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">NLP & LLMs</h3>
+                        <p class="card-description">
+                            Developing natural language understanding systems, chatbots, 
+                            sentiment analysis, and leveraging large language models for intelligent text processing.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">BERT</span>
+                            <span class="tag">GPT</span>
+                            <span class="tag">Hugging Face</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expertise-card" data-tilt>
+                    <div class="card-bg"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 3V21H21" stroke="currentColor" stroke-width="2"/>
+                                <path d="M7 14L11 10L15 14L21 8" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Predictive Analytics</h3>
+                        <p class="card-description">
+                            Building ML models for forecasting, trend analysis, and data-driven 
+                            decision making using advanced regression and time series techniques.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Time Series</span>
+                            <span class="tag">XGBoost</span>
+                            <span class="tag">Prophet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expertise-card" data-tilt>
+                    <div class="card-bg"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 21H16" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 17V21" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">MLOps & Deployment</h3>
+                        <p class="card-description">
+                            End-to-end ML pipeline development, model versioning, automated training, 
+                            and deploying models to production with monitoring and scaling.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expertise-card" data-tilt>
+                    <div class="card-bg"></div>
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon-wrapper">
+                            <div class="icon-bg"></div>
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 18C13.1 18 14 18.9 14 20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20C10 18.9 10.9 18 12 18Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M5 10C6.1 10 7 10.9 7 12C7 13.1 6.1 14 5 14C3.9 14 3 13.1 3 12C3 10.9 3.9 10 5 10Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M19 10C20.1 10 21 10.9 21 12C21 13.1 20.1 14 19 14C17.9 14 17 13.1 17 12C17 10.9 17.9 10 19 10Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 6V18M7 12H17" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">IoT & Edge AI</h3>
+                        <p class="card-description">
+                            Integrating AI models with IoT devices for real-time intelligent 
+                            edge computing solutions and smart automation systems.
+                        </p>
+                        <div class="card-tags">
+                            <span class="tag">Arduino</span>
+                            <span class="tag">Raspberry Pi</span>
+                            <span class="tag">TensorFlow Lite</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section" id="experience">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">
+                    <span class="title-text">Work Experience</span>
+                    <div class="title-line"></div>
+                </h2>
+            </div>
+
+            <div class="experience-content">
+                <div class="experience-tabs">
+                    <button class="tab-btn active" data-tab="learny">
+                        <span class="tab-indicator"></span>
+                        <span class="tab-text">LEARNY</span>
+                    </button>
+                    <button class="tab-btn" data-tab="drysmart">
+                        <span class="tab-indicator"></span>
+                        <span class="tab-text">DrySmart+</span>
+                    </button>
+                    <button class="tab-btn" data-tab="rekaira">
+                        <span class="tab-indicator"></span>
+                        <span class="tab-text">Reka Ira Media</span>
+                    </button>
+                    <button class="tab-btn" data-tab="stem">
+                        <span class="tab-indicator"></span>
+                        <span class="tab-text">STEM Education</span>
+                    </button>
+                    <button class="tab-btn" data-tab="leader">
+                        <span class="tab-indicator"></span>
+                        <span class="tab-text">Leadership</span>
+                    </button>
+                    <button class="tab-btn" data-tab="popcorn">
+                        <span class="tab-indicator"></span>
+                        <span class="tab-text">Popcorn Teams</span>
+                    </button>
+                </div>
+
+                <div class="experience-panels">
+                    <div class="experience-panel active" id="panel-learny">
+                        <div class="panel-header">
+                            <h3 class="role-title">Project Manager <span class="company">@ LEARNY</span></h3>
+                            <span class="role-date">August 2024 - Present</span>
+                        </div>
+                        <ul class="role-responsibilities">
+                            <li>Led the development and implementation of LEARNY, a user-friendly online learning platform, utilizing Bootstrap templates and integrating multiple databases to enhance functionality.</li>
+                            <li>Collaborated with a team of four to design and deploy key features, including course management and instructor interfaces, ensuring robust functionality and user experience.</li>
+                            <li>Oversaw the project's end-to-end lifecycle, from initial concept and design to final delivery, meeting academic requirements and user expectations.</li>
+                            <li>Facilitated effective communication among team members, ensuring alignment with project goals and deadlines.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-panel" id="panel-drysmart">
+                        <div class="panel-header">
+                            <h3 class="role-title">Project Lead <span class="company">@ DrySmart+</span></h3>
+                            <span class="role-date">March 2024 - Present</span>
+                        </div>
+                        <ul class="role-responsibilities">
+                            <li>Spearheaded the development of DrySmart+, an IoT-powered smart drying system designed to ensure weather-safe clothes drying.</li>
+                            <li>Led a multidisciplinary team to design and implement features such as real-time weather monitoring, automated rain detection, and energy-efficient mechanisms.</li>
+                            <li>Oversaw project planning, prototype development, and testing phases to deliver a user-centric, reliable solution.</li>
+                            <li>Facilitated collaboration between team members, ensuring timely execution and alignment with project objectives.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-panel" id="panel-rekaira">
+                        <div class="panel-header">
+                            <h3 class="role-title">Founder and CCO <span class="company">@ Reka Ira Media</span></h3>
+                            <span class="role-date">October 2023 - Present</span>
+                        </div>
+                        <ul class="role-responsibilities">
+                            <li>Established Reka Ira Media to innovate and produce impactful digital and traditional media content.</li>
+                            <li>Directed creative strategies and content production, aligning with emerging market trends to achieve organizational goals.</li>
+                            <li>Managed cross-functional teams, fostering collaboration between designers, developers, and marketers to deliver high-quality campaigns.</li>
+                            <li>Built strong client relationships and identified new opportunities to expand the company's reach and influence.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-panel" id="panel-stem">
+                        <div class="panel-header">
+                            <h3 class="role-title">National Coordinator, STEM Education <span class="company">@ Sasnaka Sansada Foundation</span></h3>
+                            <span class="role-date">March 2024 - Present</span>
+                        </div>
+                        <ul class="role-responsibilities">
+                            <li>Coordinated the nationwide Ganitha Saviya project, benefiting over 80,000 students annually through 1,300+ seminars in 25 districts.</li>
+                            <li>Designed and maintained technical dashboards to monitor and report project progress effectively.</li>
+                            <li>Organized training programs for educators and volunteers, enhancing the impact of STEM education initiatives.</li>
+                            <li>Collected and analyzed feedback to optimize the delivery of educational content and improve student outcomes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-panel" id="panel-leader">
+                        <div class="panel-header">
+                            <h3 class="role-title">Resource Person, Leadership <span class="company">@ Sasnaka Sansada Foundation</span></h3>
+                            <span class="role-date">April 2023 - Present</span>
+                        </div>
+                        <ul class="role-responsibilities">
+                            <li>Conducted leadership training sessions to empower youth with essential soft skills and grooming techniques.</li>
+                            <li>Developed interactive workshops that foster team building and individual growth.</li>
+                            <li>Worked closely with foundation teams to align training objectives with organizational goals.</li>
+                            <li>Mentored participants, inspiring confidence and cultivating a sense of responsibility and excellence.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-panel" id="panel-popcorn">
+                        <div class="panel-header">
+                            <h3 class="role-title">Facilitator <span class="company">@ Popcorn Teams</span></h3>
+                            <span class="role-date">September 2023 - Present</span>
+                        </div>
+                        <ul class="role-responsibilities">
+                            <li>Delivered corporate training programs focused on team building and organizational development.</li>
+                            <li>Designed engaging activities and exercises to improve communication and collaboration among participants.</li>
+                            <li>Provided actionable feedback and strategies to enhance team performance and dynamics.</li>
+                            <li>Built strong rapport with corporate clients to ensure the programs met specific organizational needs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-      </section>   
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <div class="section-container">
+            <div class="section-header centered">
+                <span class="section-number">04</span>
+                <h2 class="section-title">
+                    <span class="title-text">Featured Projects</span>
+                    <div class="title-line"></div>
+                </h2>
+                <p class="section-subtitle">AI-powered solutions and innovative applications</p>
+            </div>
+
+            <div class="projects-showcase">
+                <!-- Project 1 -->
+                <div class="project-card featured" data-project="1">
+                    <div class="project-visual">
+                        <div class="project-image-wrapper">
+                            <img src="./images/learny.png" alt="LEARNY Platform">
+                            <div class="image-overlay">
+                                <span class="view-project">View Project</span>
+                            </div>
+                        </div>
+                        <div class="project-decoration">
+                            <div class="deco-circle"></div>
+                            <div class="deco-lines"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-label">Featured Project</span>
+                        <h3 class="project-title">LEARNY - AI-Enhanced Learning Platform</h3>
+                        <div class="project-description">
+                            <p>A comprehensive online learning platform featuring intelligent course recommendations, 
+                            adaptive learning paths, and analytics-driven insights for both students and instructors. 
+                            Built with a focus on user experience and seamless functionality.</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>PHP</span>
+                            <span>MySQL</span>
+                            <span>JavaScript</span>
+                            <span>Bootstrap</span>
+                            <span>Machine Learning</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View on GitHub">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View Live Demo">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card featured reverse" data-project="2">
+                    <div class="project-visual">
+                        <div class="project-image-wrapper">
+                            <img src="./images/drysmart.png" alt="DrySmart+ System">
+                            <div class="image-overlay">
+                                <span class="view-project">View Project</span>
+                            </div>
+                        </div>
+                        <div class="project-decoration">
+                            <div class="deco-circle"></div>
+                            <div class="deco-lines"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-label">Featured Project</span>
+                        <h3 class="project-title">DrySmart+ - IoT Rain-Safe Drying System</h3>
+                        <div class="project-description">
+                            <p>An intelligent IoT-powered clothes drying system featuring real-time weather monitoring, 
+                            automated rain detection using ML algorithms, and energy-efficient mechanisms. 
+                            The system uses predictive analytics to optimize drying schedules.</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Arduino</span>
+                            <span>IoT</span>
+                            <span>Machine Learning</span>
+                            <span>C++</span>
+                            <span>Weather API</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View on GitHub">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View Live Demo">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card featured" data-project="3">
+                    <div class="project-visual">
+                        <div class="project-image-wrapper">
+                            <img src="./images/stem.png" alt="STEM Dashboard">
+                            <div class="image-overlay">
+                                <span class="view-project">View Project</span>
+                            </div>
+                        </div>
+                        <div class="project-decoration">
+                            <div class="deco-circle"></div>
+                            <div class="deco-lines"></div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-label">Work in Progress</span>
+                        <h3 class="project-title">GS National Progress Dashboard</h3>
+                        <div class="project-description">
+                            <p>An advanced analytics dashboard for the Ganitha Saviya project enabling real-time 
+                            tracking of educational progress across 25 districts. Features data visualization, 
+                            predictive modeling for student outcomes, and ML-powered feedback analysis.</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>Django</span>
+                            <span>PostgreSQL</span>
+                            <span>TensorFlow</span>
+                            <span>D3.js</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link" aria-label="View on GitHub">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View Live Demo">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Marquee Section -->
+    <section class="skills-marquee-section">
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                <div class="marquee-content">
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Deep Learning</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">NLP</span>
+                    <span class="skill-tag">Scikit-Learn</span>
+                    <span class="skill-tag">Keras</span>
+                    <span class="skill-tag">OpenCV</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Neural Networks</span>
+                    <span class="skill-tag">Data Science</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Deep Learning</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">NLP</span>
+                    <span class="skill-tag">Scikit-Learn</span>
+                    <span class="skill-tag">Keras</span>
+                    <span class="skill-tag">OpenCV</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Neural Networks</span>
+                    <span class="skill-tag">Data Science</span>
+                </div>
+            </div>
+        </div>
+        <div class="marquee-wrapper reverse">
+            <div class="marquee-track">
+                <div class="marquee-content">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">FastAPI</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Agile/Scrum</span>
+                    <span class="skill-tag">Project Management</span>
+                    <span class="skill-tag">Leadership</span>
+                </div>
+                <div class="marquee-content" aria-hidden="true">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">FastAPI</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Agile/Scrum</span>
+                    <span class="skill-tag">Project Management</span>
+                    <span class="skill-tag">Leadership</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <form action="form.php" method="POST" class="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
+    <section class="contact-section" id="contact">
+        <div class="section-container">
+            <div class="section-header centered">
+                <span class="section-number">05</span>
+                <h2 class="section-title">
+                    <span class="title-text">Get In Touch</span>
+                    <div class="title-line"></div>
+                </h2>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-intro">
+                    <h3 class="contact-heading">Let's Build Something Amazing Together</h3>
+                    <p class="contact-text">
+                        Whether you have a project in mind, want to collaborate on AI/ML solutions, 
+                        or just want to say hello – I'd love to hear from you. My inbox is always open!
+                    </p>
+                </div>
+
+                <form action="form.php" method="POST" class="contact-form" id="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                            <div class="input-focus-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                            <div class="input-focus-line"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-input" placeholder="How can I help you?">
+                        <div class="input-focus-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-input form-textarea" rows="6" placeholder="Your message..." required></textarea>
+                        <div class="input-focus-line"></div>
+                    </div>
+                    <button type="submit" class="submit-btn magnetic-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13"/>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+                            </svg>
+                        </span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </form>
+
+                <div class="contact-alternatives">
+                    <span class="divider-text">Or reach out directly</span>
+                    <div class="social-links">
+                        <a href="mailto:sunerasandasiri@gmail.com" class="social-link" aria-label="Email">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="social-link" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com" target="_blank" class="social-link" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2024 Sunera Samuditha | Built with ❤️</p>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <span class="footer-logo">SUNERA</span>
+                    <p class="footer-tagline">Building intelligent systems for a smarter tomorrow.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#expertise">Expertise</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2024 Sunera Samuditha. Crafted with 
+                    <span class="heart">❤️</span> 
+                    and lots of 
+                    <span class="coffee">☕</span>
+                </p>
+                <p class="footer-note">
+                    Designed & Built by Sunera Samuditha
+                </p>
+            </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
 
     <script src="script.js"></script>
 </body>
