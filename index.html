@@ -228,35 +228,18 @@
         <div class="showcase-header">
           <p class="section-kicker">04 — Projects</p>
           <h2>Featured Projects</h2>
-          <p class="section-desc">Scroll to fly through my work</p>
+          <p class="section-desc">Scroll to explore my AI/ML work in 3D</p>
         </div>
-        
-        <!-- Scroll indicator -->
-        <div class="scroll-hint" aria-hidden="true">
-          <div class="scroll-mouse">
-            <div class="scroll-wheel"></div>
-          </div>
-          <span>Scroll to explore</span>
-        </div>
-        
-        <!-- 3D Tunnel Grid Effect -->
-        <div class="tunnel-grid" aria-hidden="true">
-          <div class="tunnel-line"></div>
-          <div class="tunnel-line"></div>
-          <div class="tunnel-line"></div>
-          <div class="tunnel-line"></div>
-        </div>
-        
         <div class="showcase-world">
           <div class="showcase-camera">
             <!-- Project Card 1 -->
-            <div class="project-3d left" style="--z: -400px">
+            <div class="project-3d left" style="--z: -400px" data-index="0">
               <div class="project-3d-card">
                 <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #0a192f 100%);">
                   <div class="floating-icon">📚</div>
                 </div>
                 <div class="project-3d-content">
-                  <span class="chip">Bootstrap · PHP · SQL</span>
+                  <span class="project-3d-tag">Bootstrap · PHP · SQL</span>
                   <h3>LEARNY</h3>
                   <p>Accessible e-learning platform with instructor dashboards, cohort analytics, and adaptive recommendations.</p>
                   <div class="project-3d-tech">
@@ -268,13 +251,13 @@
               </div>
             </div>
             <!-- Project Card 2 -->
-            <div class="project-3d right" style="--z: -1200px">
+            <div class="project-3d right" style="--z: -1200px" data-index="1">
               <div class="project-3d-card">
                 <div class="project-3d-visual" style="background: linear-gradient(135deg, #0a192f 0%, #64ffda 100%);">
                   <div class="floating-icon">🌧️</div>
                 </div>
                 <div class="project-3d-content">
-                  <span class="chip">IoT · Edge Vision</span>
+                  <span class="project-3d-tag">IoT · Edge Vision</span>
                   <h3>DrySmart+</h3>
                   <p>Weather-aware drying system with rain detection, automated cover control, and telemetry for efficiency.</p>
                   <div class="project-3d-tech">
@@ -286,13 +269,13 @@
               </div>
             </div>
             <!-- Project Card 3 -->
-            <div class="project-3d left" style="--z: -2000px">
+            <div class="project-3d left" style="--z: -2000px" data-index="2">
               <div class="project-3d-card">
                 <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #112240 100%);">
                   <div class="floating-icon">📊</div>
                 </div>
                 <div class="project-3d-content">
-                  <span class="chip">React · Django</span>
+                  <span class="project-3d-tag">React · Django</span>
                   <h3>GS National Dashboard</h3>
                   <p>Live visibility for a nationwide STEM program: district progress, learner outcomes, and action queues.</p>
                   <div class="project-3d-tech">
@@ -304,19 +287,37 @@
               </div>
             </div>
             <!-- Project Card 4 -->
-            <div class="project-3d right" style="--z: -2800px">
+            <div class="project-3d right" style="--z: -2800px" data-index="3">
               <div class="project-3d-card">
                 <div class="project-3d-visual" style="background: linear-gradient(135deg, #112240 0%, #64ffda 100%);">
                   <div class="floating-icon">🧠</div>
                 </div>
                 <div class="project-3d-content">
-                  <span class="chip">AI/ML · Computer Vision</span>
+                  <span class="project-3d-tag">AI/ML · Computer Vision</span>
                   <h3>Vision Safety Pipeline</h3>
                   <p>On-device defect detection with federated fine-tuning, tuned for low light and motion blur.</p>
                   <div class="project-3d-tech">
                     <span>Edge AI</span>
                     <span>Federated</span>
                     <span>Real-time</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 5 -->
+            <div class="project-3d left" style="--z: -3600px" data-index="4">
+              <div class="project-3d-card">
+                <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #1a365d 100%);">
+                  <div class="floating-icon">🎓</div>
+                </div>
+                <div class="project-3d-content">
+                  <span class="project-3d-tag">STEM · Education</span>
+                  <h3>Ganitha Saviya Initiative</h3>
+                  <p>National STEM program supporting 80k+ students across 25 districts with analytics dashboards.</p>
+                  <div class="project-3d-tech">
+                    <span>National Scale</span>
+                    <span>Data-driven</span>
+                    <span>Impact</span>
                   </div>
                 </div>
               </div>
@@ -354,10 +355,27 @@
       <div class="section-header">
         <p class="section-kicker">06 — Stack</p>
         <h2>Tools in rotation</h2>
+        <p class="section-desc">Technologies I work with daily</p>
       </div>
-      <div class="stack-marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <span>Python</span><span>PyTorch</span><span>TensorFlow</span><span>OpenCV</span><span>Docker</span><span>Grafana</span><span>Prometheus</span><span>React</span><span>TypeScript</span><span>SQL</span><span>Django</span><span>Arduino</span><span>Figma</span><span>Heroku</span>
+      <div class="icon-strip">
+        <div class="icon-track">
+          <div class="icon-circle" title="Python"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/python.svg" alt="Python"></div>
+          <div class="icon-circle" title="PyTorch"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pytorch.svg" alt="PyTorch"></div>
+          <div class="icon-circle" title="TensorFlow"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tensorflow.svg" alt="TensorFlow"></div>
+          <div class="icon-circle" title="OpenCV"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/opencv.svg" alt="OpenCV"></div>
+          <div class="icon-circle" title="Docker"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg" alt="Docker"></div>
+          <div class="icon-circle" title="React"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/react.svg" alt="React"></div>
+          <div class="icon-circle" title="Django"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/django.svg" alt="Django"></div>
+          <div class="icon-circle" title="Arduino"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/arduino.svg" alt="Arduino"></div>
+          <!-- Duplicated for seamless scroll -->
+          <div class="icon-circle" title="Python"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/python.svg" alt="Python"></div>
+          <div class="icon-circle" title="PyTorch"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pytorch.svg" alt="PyTorch"></div>
+          <div class="icon-circle" title="TensorFlow"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tensorflow.svg" alt="TensorFlow"></div>
+          <div class="icon-circle" title="OpenCV"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/opencv.svg" alt="OpenCV"></div>
+          <div class="icon-circle" title="Docker"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg" alt="Docker"></div>
+          <div class="icon-circle" title="React"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/react.svg" alt="React"></div>
+          <div class="icon-circle" title="Django"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/django.svg" alt="Django"></div>
+          <div class="icon-circle" title="Arduino"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/arduino.svg" alt="Arduino"></div>
         </div>
       </div>
     </section>

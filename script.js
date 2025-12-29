@@ -215,98 +215,78 @@ const observer = new IntersectionObserver((entries) => {
 
 revealables.forEach(el => observer.observe(el));
 
-// 3D Showcase Scroll Effect - Tunnel Animation
+// 3D Showcase Scroll Effect
 (function() {
-  const container = document.querySelector('.showcase-3d-container');
+  const showcaseContainer = document.querySelector('.showcase-3d-container');
   const camera = document.querySelector('.showcase-camera');
-  const projects = document.querySelectorAll('.project-3d');
-  const scrollHint = document.querySelector('.scroll-hint');
-  
-  if (!container || !camera || window.innerWidth <= 1024) return;
-  
-  // Get the z-positions of all projects
-  const projectData = Array.from(projects).map(project => {
-    const zValue = parseFloat(project.style.getPropertyValue('--z')) || 0;
-    return { element: project, z: zValue };
-  });
-  
-  // Sort by z-depth (closest first)
-  projectData.sort((a, b) => b.z - a.z);
-  
-  // Calculate the total depth range
-  const minZ = Math.min(...projectData.map(p => p.z));
-  const maxZ = Math.max(...projectData.map(p => p.z));
-  const totalDepth = Math.abs(minZ) + 800; // Extra buffer at the end
-  
-  let ticking = false;
-  let scrollHintHidden = false;
-  
-  const update3DShowcase = () => {
-    const rect = container.getBoundingClientRect();
-    const containerTop = rect.top;
-    const containerHeight = rect.height;
-    const viewportHeight = window.innerHeight;
-    
-    // Calculate scroll progress through the section (0 to 1)
-    const scrollableDistance = containerHeight - viewportHeight;
-    const scrolled = Math.max(0, -containerTop);
-    const progress = Math.min(1, Math.max(0, scrolled / scrollableDistance));
-    
-    // Hide scroll hint after user starts scrolling
-    if (progress > 0.02 && !scrollHintHidden && scrollHint) {
-      scrollHint.style.opacity = '0';
-      scrollHint.style.transition = 'opacity 0.5s ease';
-      scrollHintHidden = true;
-    } else if (progress < 0.01 && scrollHintHidden && scrollHint) {
-      scrollHint.style.opacity = '1';
-      scrollHintHidden = false;
+  const projects3D = document.querySelectorAll('.project-3d');
+
+  if (showcaseContainer && camera && projects3D.length > 0 && window.innerWidth > 1024) {
+    let currentZ = 0;
+    let targetZ = 0;
+
+    const projectPositions = [
+      { z: -400, index: 0 },
+      { z: -1200, index: 1 },
+      { z: -2000, index: 2 },
+      { z: -2800, index: 3 },
+      { z: -3600, index: 4 }
+    ];
+
+    let activeProjectIndex = -1;
+
+    function lerp(start, end, factor) {
+      return start + (end - start) * factor;
     }
-    
-    // Camera moves forward through z-space
-    const cameraZ = progress * totalDepth;
-    camera.style.transform = `translateZ(${cameraZ}px)`;
-    
-    // Update each project card
-    projectData.forEach(({ element, z }) => {
-      const relativeZ = z + cameraZ; // Position relative to camera
-      
-      // Calculate opacity based on distance from camera
-      let opacity;
-      if (relativeZ > 200) {
-        // Card is far ahead - fade it out
-        opacity = Math.max(0.2, 1 - (relativeZ - 200) / 1500);
-      } else if (relativeZ < -300) {
-        // Card is behind camera - fade out quickly
-        opacity = Math.max(0, 1 + (relativeZ + 300) / 300);
-      } else {
-        // Card is in the sweet spot
-        opacity = 1;
+
+    function updateCamera() {
+      currentZ = lerp(currentZ, targetZ, 0.08);
+      const z = Math.round(currentZ * 100) / 100;
+      camera.style.transform = `translateZ(${-z}px)`;
+
+      // Find closest project
+      let closestIndex = -1;
+      let closestDist = Infinity;
+
+      projectPositions.forEach((proj, idx) => {
+        const dist = Math.abs(currentZ - proj.z);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIndex = idx;
+        }
+      });
+
+      // Activate closest project
+      if (closestDist < 500 && closestIndex !== activeProjectIndex) {
+        activeProjectIndex = closestIndex;
+        projects3D.forEach(p => p.classList.remove('active'));
+        if (activeProjectIndex >= 0 && projects3D[activeProjectIndex]) {
+          projects3D[activeProjectIndex].classList.add('active');
+        }
+      } else if (closestDist >= 500 && activeProjectIndex !== -1) {
+        projects3D.forEach(p => p.classList.remove('active'));
+        activeProjectIndex = -1;
       }
+
+      requestAnimationFrame(updateCamera);
+    }
+
+    requestAnimationFrame(updateCamera);
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 1024) return;
+
+      const rect = showcaseContainer.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
       
-      element.style.opacity = opacity;
+      const scrolled = -rect.top;
+      const totalScrollable = rect.height - viewportHeight;
       
-      // Add blur effect for distant cards
-      const blur = relativeZ > 400 ? Math.min(4, (relativeZ - 400) / 300) : 0;
-      element.style.filter = blur > 0 ? `blur(${blur}px) brightness(${1 - blur * 0.05})` : 'none';
-      
-      // Add active class when card is in view sweet spot
-      if (relativeZ > -150 && relativeZ < 300) {
-        element.classList.add('active');
-      } else {
-        element.classList.remove('active');
-      }
+      let progress = scrolled / totalScrollable;
+      progress = Math.max(0, Math.min(1, progress));
+
+      const maxZ = -4000;
+      targetZ = progress * maxZ;
     });
-    
-    ticking = false;
-  };
-  
-  const onScroll = () => {
-    if (!ticking) {
-      requestAnimationFrame(update3DShowcase);
-      ticking = true;
-    }
-  };
-  
-  window.addEventListener('scroll', onScroll, { passive: true });
-  update3DShowcase(); // Initial call
+  }
 })();
