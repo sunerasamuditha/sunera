@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen | AI/ML Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <a href="#" class="logo">
+                <span>Alex.Chen</span>
+            </a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px;">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <a href="#contact" class="btn-download-nav">Let's Connect <span style="font-size:18px">→</span></a>
+            <button class="menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <canvas id="particle-canvas"></canvas>
+            <div class="hero-content">
+                <div class="hero-3d-element">
+                    <div class="cube">
+                        <div class="cube-face front">AI</div>
+                        <div class="cube-face back">ML</div>
+                        <div class="cube-face right">DL</div>
+                        <div class="cube-face left">NLP</div>
+                        <div class="cube-face top">CV</div>
+                        <div class="cube-face bottom">RL</div>
+                    </div>
+                </div>
+                <div class="hero-badge">🤖 AI/ML Engineer</div>
+                <h1>Building Intelligent<br>Systems That <span class="gradient-text">Learn</span></h1>
+                <p class="hero-subtitle">I transform complex data into actionable intelligence. Specializing in deep learning, NLP, and computer vision to solve real-world problems.</p>
+                <div class="hero-buttons">
+                    <button class="btn-hero-primary" onclick="window.location.href='#projects'">
+                        View Projects
+                    </button>
+                    <button class="btn-hero-secondary" onclick="window.open('resume.pdf')">Download Resume</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label">ML Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Publications</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section class="tech-section" id="skills">
+            <div class="typing-container">
+                <p class="static-line">Expertise in cutting-edge</p>
+                <p class="static-line">AI/ML technologies and frameworks</p>
+            </div>
+
+            <div class="icon-strip">
+                <div class="icon-track">
+                    <div class="icon-circle" title="Python"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/python.svg" alt="Python"></div>
+                    <div class="icon-circle" title="TensorFlow"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tensorflow.svg" alt="TensorFlow"></div>
+                    <div class="icon-circle" title="PyTorch"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pytorch.svg" alt="PyTorch"></div>
+                    <div class="icon-circle" title="Scikit-learn"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/scikitlearn.svg" alt="Scikit-learn"></div>
+                    <div class="icon-circle" title="Hugging Face"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face"></div>
+                    <div class="icon-circle" title="OpenAI"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI"></div>
+                    <div class="icon-circle" title="AWS"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/amazonaws.svg" alt="AWS"></div>
+                    <div class="icon-circle" title="Docker"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg" alt="Docker"></div>
+                    <!-- Duplicated for seamless scroll -->
+                    <div class="icon-circle" title="Python"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/python.svg" alt="Python"></div>
+                    <div class="icon-circle" title="TensorFlow"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/tensorflow.svg" alt="TensorFlow"></div>
+                    <div class="icon-circle" title="PyTorch"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/pytorch.svg" alt="PyTorch"></div>
+                    <div class="icon-circle" title="Scikit-learn"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/scikitlearn.svg" alt="Scikit-learn"></div>
+                    <div class="icon-circle" title="Hugging Face"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face"></div>
+                    <div class="icon-circle" title="OpenAI"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg" alt="OpenAI"></div>
+                    <div class="icon-circle" title="AWS"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/amazonaws.svg" alt="AWS"></div>
+                    <div class="icon-circle" title="Docker"><img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/docker.svg" alt="Docker"></div>
+                </div>
+            </div>
+
+            <div class="typing-container right-aligned">
+                <p class="static-line">From data preprocessing to model deployment</p>
+                <p class="static-line">End-to-end ML pipeline expertise</p>
+            </div>
+        </section>
+
+        <!-- Skills Sticky Section -->
+        <section class="sticky-section">
+            <div class="sticky-wrapper">
+                <div class="sticky-text">
+                    <div class="feature-block active" id="feat-1" data-feature="feat-1">
+                        <h3>Deep Learning & Neural Networks</h3>
+                        <p>Designing and training complex neural architectures including CNNs, RNNs, Transformers, and GANs for computer vision, NLP, and generative AI applications.</p>
+                    </div>
+                    <div class="feature-block" id="feat-2" data-feature="feat-2">
+                        <h3>Natural Language Processing</h3>
+                        <p>Building LLM-powered applications, fine-tuning language models, implementing RAG systems, and creating intelligent chatbots and document analysis tools.</p>
+                    </div>
+                    <div class="feature-block" id="feat-3" data-feature="feat-3">
+                        <h3>MLOps & Production Systems</h3>
+                        <p>Deploying scalable ML pipelines using Kubernetes, Docker, and cloud platforms. Implementing CI/CD for ML, model monitoring, and A/B testing frameworks.</p>
+                    </div>
+                </div>
+
+                <div class="sticky-visual">
+                    <div class="code-display">
+                        <div class="code-header">
+                            <span class="dot" style="background:#ff5f56"></span>
+                            <span class="dot" style="background:#ffbd2e"></span>
+                            <span class="dot" style="background:#27c93f"></span>
+                        </div>
+                        <pre class="code-content"><code><span class="kw">import</span> torch
+<span class="kw">from</span> transformers <span class="kw">import</span> AutoModel
+
+<span class="kw">class</span> <span class="fn">NeuralArchitect</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        self.model = AutoModel.from_pretrained(
+            <span class="str">"state-of-the-art"</span>
+        )
+    
+    <span class="kw">def</span> <span class="fn">innovate</span>(self, data):
+        <span class="kw">return</span> self.model(data)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D Showcase Section -->
+        <section class="showcase-3d-container" id="projects">
+            <div class="showcase-sticky">
+                <div class="showcase-header">
+                    <h2>Featured Projects</h2>
+                    <p>Scroll to explore my AI/ML work in 3D</p>
+                </div>
+                <div class="showcase-world">
+                    <div class="showcase-camera">
+                        <!-- 3D Project Cards -->
+                        <div class="project-3d left" style="--z: -400px" data-index="0">
+                            <div class="project-3d-card">
+                                <div class="project-3d-visual" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <div class="floating-icon">🧠</div>
+                                </div>
+                                <div class="project-3d-content">
+                                    <span class="project-3d-tag">NLP • LLM</span>
+                                    <h3>Enterprise RAG System</h3>
+                                    <p>Production-ready Retrieval Augmented Generation processing 1M+ documents with 95% accuracy.</p>
+                                    <div class="project-3d-tech">
+                                        <span>LangChain</span>
+                                        <span>GPT-4</span>
+                                        <span>Pinecone</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-3d right" style="--z: -1200px" data-index="1">
+                            <div class="project-3d-card">
+                                <div class="project-3d-visual" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <div class="floating-icon">🏥</div>
+                                </div>
+                                <div class="project-3d-content">
+                                    <span class="project-3d-tag">Computer Vision</span>
+                                    <h3>Medical Image Analysis</h3>
+                                    <p>CNN-based diagnostic tool achieving 98.5% accuracy in X-ray and MRI anomaly detection.</p>
+                                    <div class="project-3d-tech">
+                                        <span>PyTorch</span>
+                                        <span>ResNet</span>
+                                        <span>ONNX</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-3d left" style="--z: -2000px" data-index="2">
+                            <div class="project-3d-card">
+                                <div class="project-3d-visual" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                    <div class="floating-icon">🎨</div>
+                                </div>
+                                <div class="project-3d-content">
+                                    <span class="project-3d-tag">Generative AI</span>
+                                    <h3>AI Content Generator</h3>
+                                    <p>Multi-modal platform combining text-to-image, voice synthesis serving 100K+ monthly users.</p>
+                                    <div class="project-3d-tech">
+                                        <span>Stable Diffusion</span>
+                                        <span>Whisper</span>
+                                        <span>FastAPI</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-3d right" style="--z: -2800px" data-index="3">
+                            <div class="project-3d-card">
+                                <div class="project-3d-visual" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                                    <div class="floating-icon">⚙️</div>
+                                </div>
+                                <div class="project-3d-content">
+                                    <span class="project-3d-tag">MLOps • Time Series</span>
+                                    <h3>Predictive Maintenance</h3>
+                                    <p>Real-time anomaly detection for industrial IoT, reducing downtime by 40%.</p>
+                                    <div class="project-3d-tech">
+                                        <span>TensorFlow</span>
+                                        <span>Kafka</span>
+                                        <span>K8s</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-3d left" style="--z: -3600px" data-index="4">
+                            <div class="project-3d-card">
+                                <div class="project-3d-visual" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                                    <div class="floating-icon">📈</div>
+                                </div>
+                                <div class="project-3d-content">
+                                    <span class="project-3d-tag">Reinforcement Learning</span>
+                                    <h3>Autonomous Trading Agent</h3>
+                                    <p>RL-based trading system using PPO achieving 23% annual returns.</p>
+                                    <div class="project-3d-tech">
+                                        <span>Stable Baselines3</span>
+                                        <span>Ray</span>
+                                        <span>PostgreSQL</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Projects Grid -->
+        <section class="projects-section">
+            <div class="section-head reveal-section">
+                <div>
+                    <h2>More Projects</h2>
+                    <p>Additional AI/ML work spanning various domains and technologies.</p>
+                </div>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card reveal-item">
+                    <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="project-overlay">
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">LLM</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Enterprise RAG System</h3>
+                        <p>Built a production-ready Retrieval Augmented Generation system processing 1M+ documents with 95% accuracy for enterprise knowledge management.</p>
+                        <div class="project-tech">
+                            <span>LangChain</span>
+                            <span>GPT-4</span>
+                            <span>Pinecone</span>
+                        </div>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card reveal-item">
+                    <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="project-overlay">
+                            <span class="project-tag">Computer Vision</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Medical Image Analysis</h3>
+                        <p>Developed CNN-based diagnostic tool achieving 98.5% accuracy in detecting anomalies in X-ray and MRI scans, deployed across 50+ healthcare facilities.</p>
+                        <div class="project-tech">
+                            <span>PyTorch</span>
+                            <span>ResNet</span>
+                            <span>ONNX</span>
+                        </div>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card reveal-item">
+                    <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="project-overlay">
+                            <span class="project-tag">Generative AI</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI Content Generator</h3>
+                        <p>Created a multi-modal generative AI platform combining text-to-image, voice synthesis, and video generation serving 100K+ monthly users.</p>
+                        <div class="project-tech">
+                            <span>Stable Diffusion</span>
+                            <span>Whisper</span>
+                            <span>FastAPI</span>
+                        </div>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card reveal-item">
+                    <div class="project-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        <div class="project-overlay">
+                            <span class="project-tag">MLOps</span>
+                            <span class="project-tag">Time Series</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Predictive Maintenance Platform</h3>
+                        <p>Engineered real-time anomaly detection system for industrial IoT, reducing equipment downtime by 40% using LSTM and attention mechanisms.</p>
+                        <div class="project-tech">
+                            <span>TensorFlow</span>
+                            <span>Kafka</span>
+                            <span>Kubernetes</span>
+                        </div>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card reveal-item">
+                    <div class="project-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                        <div class="project-overlay">
+                            <span class="project-tag">Reinforcement Learning</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Autonomous Trading Agent</h3>
+                        <p>Designed RL-based trading system using PPO algorithm achieving 23% annual returns with sophisticated risk management strategies.</p>
+                        <div class="project-tech">
+                            <span>Stable Baselines3</span>
+                            <span>Ray</span>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card reveal-item">
+                    <div class="project-image" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                        <div class="project-overlay">
+                            <span class="project-tag">Speech AI</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Real-time Speech Analytics</h3>
+                        <p>Built end-to-end speech recognition and sentiment analysis pipeline for call centers, processing 10,000+ calls daily with sub-second latency.</p>
+                        <div class="project-tech">
+                            <span>Wav2Vec2</span>
+                            <span>BERT</span>
+                            <span>Redis</span>
+                        </div>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="experience-section" id="experience">
+            <div class="section-head reveal-section">
+                <div>
+                    <h2>Professional Journey</h2>
+                    <p>My career path in artificial intelligence and machine learning.</p>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022 - Present</span>
+                        <h3>Senior ML Engineer</h3>
+                        <h4>TechCorp AI Labs</h4>
+                        <p>Leading the development of LLM-powered products. Architecting scalable ML infrastructure serving millions of users. Mentoring team of 5 engineers.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2020 - 2022</span>
+                        <h3>Machine Learning Engineer</h3>
+                        <h4>DataDriven Inc.</h4>
+                        <p>Built computer vision pipeline for autonomous vehicles. Developed NLP models for document understanding. Improved model inference speed by 3x.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2019 - 2020</span>
+                        <h3>AI Research Intern</h3>
+                        <h4>Innovation Labs</h4>
+                        <p>Published 3 papers on neural architecture search. Contributed to open-source ML frameworks. Developed novel attention mechanisms for sequence modeling.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2015 - 2019</span>
+                        <h3>M.S. Computer Science</h3>
+                        <h4>Stanford University</h4>
+                        <p>Specialization in Machine Learning and AI. Thesis on "Efficient Transformers for Long-form Document Understanding". GPA: 3.95/4.0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <h2>What Colleagues Say</h2>
+                <p>Feedback from people I've worked with</p>
+            </div>
+            <div class="reviews-track-container">
+                <div class="reviews-track">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Alex's deep expertise in ML fundamentals combined with practical engineering skills is rare. They transformed our recommendation system, improving engagement by 45%."</p>
+                        <div class="review-author">
+                            <div class="author-avatar" style="background:#667eea">SM</div>
+                            <div>
+                                <h4>Sarah Mitchell</h4>
+                                <span>VP Engineering, TechCorp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Working with Alex on our NLP project was exceptional. Their ability to translate complex research into production-ready code is outstanding."</p>
+                        <div class="review-author">
+                            <div class="author-avatar" style="background:#f093fb">DK</div>
+                            <div>
+                                <h4>David Kim</h4>
+                                <span>CTO, AI Startup</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Alex's mentorship helped me grow from junior to senior engineer in 18 months. Their technical guidance and patience are unmatched."</p>
+                        <div class="review-author">
+                            <div class="author-avatar" style="background:#4facfe">JL</div>
+                            <div>
+                                <h4>Jennifer Lee</h4>
+                                <span>ML Engineer, TechCorp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"The ML infrastructure Alex designed handles 10x our original scale with no issues. True systems thinking combined with ML expertise."</p>
+                        <div class="review-author">
+                            <div class="author-avatar" style="background:#27c93f">RP</div>
+                            <div>
+                                <h4>Robert Park</h4>
+                                <span>Director of Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Alex's research during their internship led to 3 published papers and a patent. Their curiosity and drive for innovation is inspiring."</p>
+                        <div class="review-author">
+                            <div class="author-avatar" style="background:#764ba2">EP</div>
+                            <div>
+                                <h4>Dr. Emily Patel</h4>
+                                <span>Research Director</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Contact Footer -->
+    <footer class="giant-footer" id="contact">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h4>Let's build something intelligent together</h4>
+                <p class="contact-email">alex.chen@email.com</p>
+            </div>
+            <div class="footer-cols">
+                <div class="footer-col">
+                    <h5>Connect</h5>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter/X</a></li>
+                        <li><a href="#">Google Scholar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Resume</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="giant-text">AI/ML</div>
+
+        <div class="footer-bottom">
+            <div class="left">
+                <span style="opacity:0.6; margin-right:16px;">© 2025 Alex Chen</span>
+            </div>
+            <div class="center">
+                <span>Built with ❤️ and neural networks</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

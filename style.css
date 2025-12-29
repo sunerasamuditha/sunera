@@ -803,7 +803,7 @@ a {
 /* Featured Projects 3D Section    */
 /* ================================ */
 .showcase-3d-container {
-  height: 400vh;
+  height: 300vh;
   position: relative;
   background: linear-gradient(180deg, var(--bg) 0%, rgba(17, 34, 64, 1) 50%, var(--bg) 100%);
 }
@@ -813,7 +813,6 @@ a {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  perspective: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -822,10 +821,12 @@ a {
 
 .showcase-header {
   position: absolute;
-  top: 100px;
-  left: 8vw;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
-  max-width: 500px;
+  text-align: center;
+  max-width: 600px;
 }
 
 .showcase-header h2 {
@@ -837,13 +838,136 @@ a {
   color: var(--muted);
 }
 
+/* Scroll Hint Indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  animation: fadeInUp 1s ease 0.5s both;
+}
+
+.scroll-hint span {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.scroll-mouse {
+  width: 26px;
+  height: 42px;
+  border: 2px solid rgba(100, 255, 218, 0.5);
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+}
+
+.scroll-wheel {
+  width: 4px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 4px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollWheel 2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+}
+
+@keyframes scrollWheel {
+  0%, 100% { opacity: 1; top: 8px; }
+  50% { opacity: 0.3; top: 22px; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Tunnel Grid Effect */
+.tunnel-grid {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  perspective: 500px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tunnel-line {
+  position: absolute;
+  width: 200%;
+  height: 1px;
+  left: -50%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(100, 255, 218, 0.3) 20%, 
+    rgba(100, 255, 218, 0.5) 50%, 
+    rgba(100, 255, 218, 0.3) 80%, 
+    transparent 100%);
+  animation: tunnelPulse 3s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+}
+
+.tunnel-line:nth-child(1) { top: 20%; animation-delay: 0s; opacity: 0.5; }
+.tunnel-line:nth-child(2) { top: 40%; animation-delay: 0.5s; opacity: 0.7; }
+.tunnel-line:nth-child(3) { top: 60%; animation-delay: 1s; opacity: 0.7; }
+.tunnel-line:nth-child(4) { top: 80%; animation-delay: 1.5s; opacity: 0.5; }
+
+@keyframes tunnelPulse {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+  50% { opacity: 0.8; transform: scaleX(1); }
+}
+
+/* Radial vignette for depth */
+.showcase-sticky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, 
+    transparent 0%, 
+    transparent 40%, 
+    rgba(10, 25, 47, 0.8) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Center focal point glow */
+.showcase-sticky::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, 
+    rgba(100, 255, 218, 0.15) 0%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  animation: focalPulse 4s ease-in-out infinite;
+}
+
+@keyframes focalPulse {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
 .showcase-world {
   width: 100%;
   height: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  inset: 0;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
 }
 
 .showcase-camera {
@@ -852,48 +976,61 @@ a {
   position: absolute;
   transform-style: preserve-3d;
   will-change: transform;
+  transition: transform 0.1s linear;
 }
 
 .project-3d {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 700px;
-  max-width: 90vw;
-  height: 380px;
+  width: 650px;
+  max-width: 85vw;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
-  opacity: 0.9;
+  backface-visibility: hidden;
+  transition: opacity 0.5s ease, filter 0.5s ease;
 }
 
 .project-3d.left {
-  transform: translate3d(-800px, -190px, var(--z));
+  transform: translate3d(calc(-50% - 150px), -50%, var(--z)) rotateY(8deg);
 }
 
 .project-3d.right {
-  transform: translate3d(100px, -190px, var(--z));
+  transform: translate3d(calc(-50% + 150px), -50%, var(--z)) rotateY(-8deg);
 }
 
 .project-3d.active {
-  transform: translate3d(-350px, -190px, var(--z)) !important;
-  opacity: 1;
+  filter: brightness(1.1);
+}
+
+.project-3d.active.left {
+  transform: translate3d(-50%, -50%, var(--z)) rotateY(0deg) scale(1.02);
+}
+
+.project-3d.active.right {
+  transform: translate3d(-50%, -50%, var(--z)) rotateY(0deg) scale(1.02);
 }
 
 .project-3d-card {
   display: flex;
   background: var(--card);
   border-radius: var(--radius);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(100, 255, 218, 0.1);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.5), 
+    0 0 80px rgba(100, 255, 218, 0.15),
+    inset 0 0 30px rgba(100, 255, 218, 0.03);
   overflow: hidden;
-  height: 100%;
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  border: 1px solid rgba(100, 255, 218, 0.25);
   backdrop-filter: blur(10px);
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
 }
 
-.project-3d-card:hover {
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(100, 255, 218, 0.2);
-  border-color: rgba(100, 255, 218, 0.4);
+.project-3d:hover .project-3d-card {
+  box-shadow: 
+    0 35px 80px rgba(0, 0, 0, 0.6), 
+    0 0 100px rgba(100, 255, 218, 0.25),
+    inset 0 0 40px rgba(100, 255, 218, 0.05);
+  border-color: rgba(100, 255, 218, 0.5);
+  transform: scale(1.03);
 }
 
 .project-3d-visual {

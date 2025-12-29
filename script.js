@@ -215,48 +215,98 @@ const observer = new IntersectionObserver((entries) => {
 
 revealables.forEach(el => observer.observe(el));
 
-// 3D Showcase Scroll Effect
+// 3D Showcase Scroll Effect - Tunnel Animation
 (function() {
   const container = document.querySelector('.showcase-3d-container');
   const camera = document.querySelector('.showcase-camera');
   const projects = document.querySelectorAll('.project-3d');
+  const scrollHint = document.querySelector('.scroll-hint');
   
   if (!container || !camera || window.innerWidth <= 1024) return;
   
-  const maxZ = 4000; // Total depth to travel
+  // Get the z-positions of all projects
+  const projectData = Array.from(projects).map(project => {
+    const zValue = parseFloat(project.style.getPropertyValue('--z')) || 0;
+    return { element: project, z: zValue };
+  });
+  
+  // Sort by z-depth (closest first)
+  projectData.sort((a, b) => b.z - a.z);
+  
+  // Calculate the total depth range
+  const minZ = Math.min(...projectData.map(p => p.z));
+  const maxZ = Math.max(...projectData.map(p => p.z));
+  const totalDepth = Math.abs(minZ) + 800; // Extra buffer at the end
+  
+  let ticking = false;
+  let scrollHintHidden = false;
   
   const update3DShowcase = () => {
     const rect = container.getBoundingClientRect();
-    const scrollableHeight = rect.height - window.innerHeight;
-    const progress = Math.max(0, Math.min(1, -rect.top / scrollableHeight));
+    const containerTop = rect.top;
+    const containerHeight = rect.height;
+    const viewportHeight = window.innerHeight;
     
-    // Move camera through the z-axis
-    const cameraZ = progress * maxZ;
+    // Calculate scroll progress through the section (0 to 1)
+    const scrollableDistance = containerHeight - viewportHeight;
+    const scrolled = Math.max(0, -containerTop);
+    const progress = Math.min(1, Math.max(0, scrolled / scrollableDistance));
+    
+    // Hide scroll hint after user starts scrolling
+    if (progress > 0.02 && !scrollHintHidden && scrollHint) {
+      scrollHint.style.opacity = '0';
+      scrollHint.style.transition = 'opacity 0.5s ease';
+      scrollHintHidden = true;
+    } else if (progress < 0.01 && scrollHintHidden && scrollHint) {
+      scrollHint.style.opacity = '1';
+      scrollHintHidden = false;
+    }
+    
+    // Camera moves forward through z-space
+    const cameraZ = progress * totalDepth;
     camera.style.transform = `translateZ(${cameraZ}px)`;
     
-    // Update project card states based on camera position
-    projects.forEach((project) => {
-      const projectZ = Math.abs(parseFloat(project.style.getPropertyValue('--z')));
-      const distance = projectZ - cameraZ;
+    // Update each project card
+    projectData.forEach(({ element, z }) => {
+      const relativeZ = z + cameraZ; // Position relative to camera
       
-      // Make cards active when they're near the camera
-      if (distance > -200 && distance < 600) {
-        project.classList.add('active');
+      // Calculate opacity based on distance from camera
+      let opacity;
+      if (relativeZ > 200) {
+        // Card is far ahead - fade it out
+        opacity = Math.max(0.2, 1 - (relativeZ - 200) / 1500);
+      } else if (relativeZ < -300) {
+        // Card is behind camera - fade out quickly
+        opacity = Math.max(0, 1 + (relativeZ + 300) / 300);
       } else {
-        project.classList.remove('active');
+        // Card is in the sweet spot
+        opacity = 1;
       }
       
-      // Fade out cards that are behind the camera
-      if (distance < -400) {
-        project.style.opacity = '0';
-      } else if (distance < 0) {
-        project.style.opacity = Math.max(0, 1 + distance / 400);
+      element.style.opacity = opacity;
+      
+      // Add blur effect for distant cards
+      const blur = relativeZ > 400 ? Math.min(4, (relativeZ - 400) / 300) : 0;
+      element.style.filter = blur > 0 ? `blur(${blur}px) brightness(${1 - blur * 0.05})` : 'none';
+      
+      // Add active class when card is in view sweet spot
+      if (relativeZ > -150 && relativeZ < 300) {
+        element.classList.add('active');
       } else {
-        project.style.opacity = Math.min(1, 0.3 + (1 - distance / 3000) * 0.7);
+        element.classList.remove('active');
       }
     });
+    
+    ticking = false;
   };
   
-  window.addEventListener('scroll', update3DShowcase);
-  update3DShowcase();
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(update3DShowcase);
+      ticking = true;
+    }
+  };
+  
+  window.addEventListener('scroll', onScroll, { passive: true });
+  update3DShowcase(); // Initial call
 })();
