@@ -215,7 +215,7 @@ const observer = new IntersectionObserver((entries) => {
 
 revealables.forEach(el => observer.observe(el));
 
-// 3D Showcase Scroll Effect (Optimized)
+// 3D Showcase Scroll Effect
 (function() {
   const showcaseContainer = document.querySelector('.showcase-3d-container');
   const camera = document.querySelector('.showcase-camera');
@@ -224,8 +224,6 @@ revealables.forEach(el => observer.observe(el));
   if (showcaseContainer && camera && projects3D.length > 0 && window.innerWidth > 1024) {
     let currentZ = 0;
     let targetZ = 0;
-    let isAnimating = false;
-    let rafId = null;
 
     const projectPositions = [
       { z: -400, index: 0 },
@@ -236,105 +234,59 @@ revealables.forEach(el => observer.observe(el));
     ];
 
     let activeProjectIndex = -1;
-    const threshold = 0.5; // Stop animating when close enough
 
     function lerp(start, end, factor) {
       return start + (end - start) * factor;
     }
 
     function updateCamera() {
-      const diff = Math.abs(currentZ - targetZ);
-      
-      // Only continue if there's significant movement needed
-      if (diff > threshold) {
-        currentZ = lerp(currentZ, targetZ, 0.08);
-        const z = Math.round(currentZ * 100) / 100;
-        camera.style.transform = `translateZ(${-z}px)`;
+      currentZ = lerp(currentZ, targetZ, 0.08);
+      const z = Math.round(currentZ * 100) / 100;
+      camera.style.transform = `translateZ(${-z}px)`;
 
-        // Find closest project (only when moving)
-        let closestIndex = -1;
-        let closestDist = Infinity;
+      // Find closest project
+      let closestIndex = -1;
+      let closestDist = Infinity;
 
-        for (let i = 0; i < projectPositions.length; i++) {
-          const dist = Math.abs(currentZ - projectPositions[i].z);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closestIndex = i;
-          }
+      projectPositions.forEach((proj, idx) => {
+        const dist = Math.abs(currentZ - proj.z);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIndex = idx;
         }
-
-        // Activate closest project
-        if (closestDist < 500 && closestIndex !== activeProjectIndex) {
-          activeProjectIndex = closestIndex;
-          projects3D.forEach(p => p.classList.remove('active'));
-          if (projects3D[activeProjectIndex]) {
-            projects3D[activeProjectIndex].classList.add('active');
-          }
-        } else if (closestDist >= 500 && activeProjectIndex !== -1) {
-          projects3D.forEach(p => p.classList.remove('active'));
-          activeProjectIndex = -1;
-        }
-
-        rafId = requestAnimationFrame(updateCamera);
-      } else {
-        // Snap to final position and stop
-        currentZ = targetZ;
-        camera.style.transform = `translateZ(${-targetZ}px)`;
-        isAnimating = false;
-        rafId = null;
-      }
-    }
-
-    function startAnimation() {
-      if (!isAnimating) {
-        isAnimating = true;
-        rafId = requestAnimationFrame(updateCamera);
-      }
-    }
-
-    // Cache container dimensions
-    let containerHeight = showcaseContainer.offsetHeight;
-    let containerTop = 0;
-    
-    // Throttled scroll handler
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (window.innerWidth <= 1024 || ticking) return;
-      
-      ticking = true;
-      requestAnimationFrame(() => {
-        const rect = showcaseContainer.getBoundingClientRect();
-        containerTop = rect.top;
-        
-        const scrolled = -containerTop;
-        const totalScrollable = containerHeight - window.innerHeight;
-        
-        let progress = scrolled / totalScrollable;
-        progress = Math.max(0, Math.min(1, progress));
-
-        const maxZ = -4000;
-        const newTargetZ = progress * maxZ;
-        
-        // Only start animation if target actually changed
-        if (Math.abs(newTargetZ - targetZ) > 1) {
-          targetZ = newTargetZ;
-          startAnimation();
-        }
-        
-        ticking = false;
       });
-    }, { passive: true });
 
-    // Update dimensions on resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        containerHeight = showcaseContainer.offsetHeight;
-      }, 250);
+      // Activate closest project
+      if (closestDist < 500 && closestIndex !== activeProjectIndex) {
+        activeProjectIndex = closestIndex;
+        projects3D.forEach(p => p.classList.remove('active'));
+        if (activeProjectIndex >= 0 && projects3D[activeProjectIndex]) {
+          projects3D[activeProjectIndex].classList.add('active');
+        }
+      } else if (closestDist >= 500 && activeProjectIndex !== -1) {
+        projects3D.forEach(p => p.classList.remove('active'));
+        activeProjectIndex = -1;
+      }
+
+      requestAnimationFrame(updateCamera);
+    }
+
+    requestAnimationFrame(updateCamera);
+
+    window.addEventListener('scroll', () => {
+      if (window.innerWidth <= 1024) return;
+
+      const rect = showcaseContainer.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      const scrolled = -rect.top;
+      const totalScrollable = rect.height - viewportHeight;
+      
+      let progress = scrolled / totalScrollable;
+      progress = Math.max(0, Math.min(1, progress));
+
+      const maxZ = -4000;
+      targetZ = progress * maxZ;
     });
-
-    // Initial trigger
-    startAnimation();
   }
 })();
