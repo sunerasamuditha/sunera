@@ -222,51 +222,90 @@
       </div>
     </section>
 
-    <section class="section projects" id="projects">
-      <div class="section-header">
-        <p class="section-kicker">04 — Projects</p>
-        <h2>Deployed and in-progress</h2>
-      </div>
-      <div class="project-grid">
-        <article class="project-card tilt" data-tilt>
-          <div class="project-media">
-            <img src="./images/learny.png" alt="LEARNY platform screenshot" />
-          </div>
-          <div class="project-copy">
-            <p class="chip">Bootstrap · PHP · SQL</p>
-            <h3>LEARNY · Online learning platform</h3>
-            <p>Accessible e-learning with instructor dashboards, cohort analytics, and adaptive recommendations.</p>
-            <div class="pill-row">
-              <span class="pill">Analytics</span><span class="pill">Access control</span><span class="pill">A/B content</span>
+    <!-- Featured Projects 3D Section -->
+    <section class="showcase-3d-container" id="projects">
+      <div class="showcase-sticky">
+        <div class="showcase-header">
+          <p class="section-kicker">04 — Projects</p>
+          <h2>Featured Projects</h2>
+          <p class="section-desc">Scroll to explore my work in 3D</p>
+        </div>
+        <div class="showcase-world">
+          <div class="showcase-camera">
+            <!-- Project Card 1 -->
+            <div class="project-3d left" style="--z: -400px">
+              <div class="project-3d-card">
+                <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #0a192f 100%);">
+                  <div class="floating-icon">📚</div>
+                </div>
+                <div class="project-3d-content">
+                  <span class="chip">Bootstrap · PHP · SQL</span>
+                  <h3>LEARNY</h3>
+                  <p>Accessible e-learning platform with instructor dashboards, cohort analytics, and adaptive recommendations.</p>
+                  <div class="project-3d-tech">
+                    <span>Analytics</span>
+                    <span>Access Control</span>
+                    <span>A/B Content</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 2 -->
+            <div class="project-3d right" style="--z: -1200px">
+              <div class="project-3d-card">
+                <div class="project-3d-visual" style="background: linear-gradient(135deg, #0a192f 0%, #64ffda 100%);">
+                  <div class="floating-icon">🌧️</div>
+                </div>
+                <div class="project-3d-content">
+                  <span class="chip">IoT · Edge Vision</span>
+                  <h3>DrySmart+</h3>
+                  <p>Weather-aware drying system with rain detection, automated cover control, and telemetry for efficiency.</p>
+                  <div class="project-3d-tech">
+                    <span>Edge AI</span>
+                    <span>Telemetry</span>
+                    <span>Energy Aware</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 3 -->
+            <div class="project-3d left" style="--z: -2000px">
+              <div class="project-3d-card">
+                <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #112240 100%);">
+                  <div class="floating-icon">📊</div>
+                </div>
+                <div class="project-3d-content">
+                  <span class="chip">React · Django</span>
+                  <h3>GS National Dashboard</h3>
+                  <p>Live visibility for a nationwide STEM program: district progress, learner outcomes, and action queues.</p>
+                  <div class="project-3d-tech">
+                    <span>Realtime</span>
+                    <span>Cohort Insights</span>
+                    <span>Gov Data</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Project Card 4 -->
+            <div class="project-3d right" style="--z: -2800px">
+              <div class="project-3d-card">
+                <div class="project-3d-visual" style="background: linear-gradient(135deg, #112240 0%, #64ffda 100%);">
+                  <div class="floating-icon">🧠</div>
+                </div>
+                <div class="project-3d-content">
+                  <span class="chip">AI/ML · Computer Vision</span>
+                  <h3>Vision Safety Pipeline</h3>
+                  <p>On-device defect detection with federated fine-tuning, tuned for low light and motion blur.</p>
+                  <div class="project-3d-tech">
+                    <span>Edge AI</span>
+                    <span>Federated</span>
+                    <span>Real-time</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </article>
-        <article class="project-card tilt" data-tilt>
-          <div class="project-media">
-            <img src="./images/drysmart.png" alt="DrySmart system" />
-          </div>
-          <div class="project-copy">
-            <p class="chip">IoT · Edge Vision</p>
-            <h3>DrySmart+ · Rain-safe drying system</h3>
-            <p>Weather-aware drying with rain detection, automated cover control, and telemetry for efficiency.</p>
-            <div class="pill-row">
-              <span class="pill">Edge AI</span><span class="pill">Telemetry</span><span class="pill">Energy aware</span>
-            </div>
-          </div>
-        </article>
-        <article class="project-card tilt" data-tilt>
-          <div class="project-media">
-            <img src="./images/stem.png" alt="STEM dashboard" />
-          </div>
-          <div class="project-copy">
-            <p class="chip">React · Django</p>
-            <h3>GS National Progress Dashboard</h3>
-            <p>Live visibility for a nationwide STEM program: district progress, learner outcomes, and action queues.</p>
-            <div class="pill-row">
-              <span class="pill">Realtime</span><span class="pill">Cohort insights</span><span class="pill">Gov data</span>
-            </div>
-          </div>
-        </article>
+        </div>
       </div>
     </section>
 
@@ -327,9 +366,42 @@
         </label>
         <button type="submit" class="btn primary">Send message</button>
       </form>
-      <p class="footer-note">© 2025 Sunera Samuditha — AI/ML Engineer</p>
     </section>
   </main>
+
+  <!-- Giant Footer -->
+  <footer class="giant-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h4>Let's build something <span class="accent">intelligent</span> together</h4>
+        <p class="contact-email">sunera@example.com</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Twitter</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Navigate</h5>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="giant-text">SUNERA</div>
+    <div class="footer-bottom">
+      <span>© 2025 Sunera Samuditha — AI/ML Engineer</span>
+      <span>Built with ❤️ and lots of ☕</span>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>

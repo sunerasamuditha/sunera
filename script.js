@@ -214,3 +214,49 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 revealables.forEach(el => observer.observe(el));
+
+// 3D Showcase Scroll Effect
+(function() {
+  const container = document.querySelector('.showcase-3d-container');
+  const camera = document.querySelector('.showcase-camera');
+  const projects = document.querySelectorAll('.project-3d');
+  
+  if (!container || !camera || window.innerWidth <= 1024) return;
+  
+  const maxZ = 4000; // Total depth to travel
+  
+  const update3DShowcase = () => {
+    const rect = container.getBoundingClientRect();
+    const scrollableHeight = rect.height - window.innerHeight;
+    const progress = Math.max(0, Math.min(1, -rect.top / scrollableHeight));
+    
+    // Move camera through the z-axis
+    const cameraZ = progress * maxZ;
+    camera.style.transform = `translateZ(${cameraZ}px)`;
+    
+    // Update project card states based on camera position
+    projects.forEach((project) => {
+      const projectZ = Math.abs(parseFloat(project.style.getPropertyValue('--z')));
+      const distance = projectZ - cameraZ;
+      
+      // Make cards active when they're near the camera
+      if (distance > -200 && distance < 600) {
+        project.classList.add('active');
+      } else {
+        project.classList.remove('active');
+      }
+      
+      // Fade out cards that are behind the camera
+      if (distance < -400) {
+        project.style.opacity = '0';
+      } else if (distance < 0) {
+        project.style.opacity = Math.max(0, 1 + distance / 400);
+      } else {
+        project.style.opacity = Math.min(1, 0.3 + (1 - distance / 3000) * 0.7);
+      }
+    });
+  };
+  
+  window.addEventListener('scroll', update3DShowcase);
+  update3DShowcase();
+})();
