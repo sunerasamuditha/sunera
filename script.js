@@ -37,7 +37,15 @@ navList.querySelectorAll('a').forEach(link => {
   class Circuit {
     constructor() {
       this.path = [];
-      this.side = Math.random() > 0.5 ? 'left' : 'right'; // Circuits from both sides
+      // Circuits from left, right, OR center
+      const rand = Math.random();
+      if (rand < 0.4) {
+        this.side = 'left';
+      } else if (rand < 0.8) {
+        this.side = 'right';
+      } else {
+        this.side = 'center'; // 20% of circuits are in the center
+      }
       this.generatePath();
     }
 
@@ -47,11 +55,15 @@ navList.querySelectorAll('a').forEach(link => {
       if (this.side === 'left') {
         // Start from left, go toward center
         x = Math.random() * (w * 0.25);
-        targetX = centerX - 100 + Math.random() * 200; // End near center (distributed)
-      } else {
+        targetX = centerX - 100 + Math.random() * 200;
+      } else if (this.side === 'right') {
         // Start from right, go toward center
         x = w - Math.random() * (w * 0.25);
         targetX = centerX - 100 + Math.random() * 200;
+      } else {
+        // Center circuits - start and stay in center zone
+        x = centerX - 150 + Math.random() * 300;
+        targetX = centerX - 150 + Math.random() * 300;
       }
       
       y = Math.random() * h;
@@ -61,7 +73,17 @@ navList.querySelectorAll('a').forEach(link => {
 
       let steps = Math.floor(Math.random() * 5) + 3;
       for (let i = 0; i < steps; i++) {
-        if (Math.random() > 0.4) {
+        if (this.side === 'center') {
+          // Center circuits move in any direction
+          if (Math.random() > 0.5) {
+            x += (Math.floor(Math.random() * 4) - 2) * 20;
+          } else {
+            y += (Math.floor(Math.random() * 6) - 3) * 20;
+          }
+          // Keep within center zone
+          if (x < centerX - 200) x = centerX - 200;
+          if (x > centerX + 200) x = centerX + 200;
+        } else if (Math.random() > 0.4) {
           // Move toward target
           const dir = this.side === 'left' ? 1 : -1;
           x += dir * (Math.floor(Math.random() * 4) + 2) * 20;
@@ -85,7 +107,7 @@ navList.querySelectorAll('a').forEach(link => {
 
     drawStatic() {
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(${cfg.colorCircuit}, 0.12)`; // Brighter traces
+      ctx.strokeStyle = `rgba(${cfg.colorCircuit}, 0.2)`; // Brighter traces
       ctx.lineWidth = 1;
       ctx.moveTo(this.path[0].x, this.path[0].y);
       for (let i = 1; i < this.path.length; i++) {
@@ -94,7 +116,7 @@ navList.querySelectorAll('a').forEach(link => {
       ctx.stroke();
       
       // Brighter terminal pads
-      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.25)`;
+      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.4)`;
       ctx.fillRect(this.endX - 3, this.endY - 3, 6, 6);
     }
   }
@@ -141,7 +163,7 @@ navList.querySelectorAll('a').forEach(link => {
       // Glow effect
       ctx.beginPath();
       ctx.arc(this.x, this.y, 8, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.3)`;
+      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.5)`;
       ctx.fill();
     }
 
@@ -254,7 +276,7 @@ navList.querySelectorAll('a').forEach(link => {
       // Core neuron - brighter
       ctx.beginPath();
       ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${cfg.colorNeuron}, 0.7)`;
+      ctx.fillStyle = `rgba(${cfg.colorNeuron}, 0.85)`;
       ctx.fill();
 
       // Flash effect
@@ -325,9 +347,9 @@ navList.querySelectorAll('a').forEach(link => {
           ctx.lineTo(n2.x, n2.y);
           
           // Brighter base connections, even brighter when energized
-          let alpha = 0.15 * (1 - d / cfg.connectionDistance);
+          let alpha = 0.25 * (1 - d / cfg.connectionDistance);
           if (n1.energy > 0 || n2.energy > 0) {
-            alpha = 0.5 * (1 - d / cfg.connectionDistance);
+            alpha = 0.7 * (1 - d / cfg.connectionDistance);
           }
           
           ctx.strokeStyle = `rgba(${cfg.colorNeuron}, ${alpha})`;
