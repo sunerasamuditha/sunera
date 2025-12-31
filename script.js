@@ -14,6 +14,7 @@ navList.querySelectorAll('a').forEach(link => {
   if (!canvas) return;
   
   const ctx = canvas.getContext('2d');
+  const heroSection = document.getElementById('hero');
   let width, height;
   let nodes = [];
   let mouse = { x: null, y: null };
@@ -21,9 +22,9 @@ navList.querySelectorAll('a').forEach(link => {
   let isVisible = true;
   
   const config = {
-    nodeCount: 80,
-    connectionDistance: 150,
-    nodeSpeed: 0.3,
+    nodeCount: 120,
+    connectionDistance: 180,
+    nodeSpeed: 0.25,
     pulseSpeed: 0.02,
     accentColor: { r: 100, g: 255, b: 218 },
     nodeMinSize: 2,
@@ -31,7 +32,7 @@ navList.querySelectorAll('a').forEach(link => {
   };
   
   function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
+    const rect = heroSection.getBoundingClientRect();
     width = canvas.width = rect.width;
     height = canvas.height = rect.height;
     initNodes();
@@ -185,16 +186,16 @@ navList.querySelectorAll('a').forEach(link => {
   const observer = new IntersectionObserver((entries) => {
     isVisible = entries[0].isIntersecting;
   }, { threshold: 0 });
-  observer.observe(canvas);
+  observer.observe(heroSection);
   
-  // Mouse tracking
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
+  // Mouse tracking on entire hero section
+  heroSection.addEventListener('mousemove', (e) => {
+    const rect = heroSection.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   });
   
-  canvas.addEventListener('mouseleave', () => {
+  heroSection.addEventListener('mouseleave', () => {
     mouse.x = null;
     mouse.y = null;
   });
