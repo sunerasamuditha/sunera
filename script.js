@@ -290,39 +290,34 @@ revealables.forEach(el => observer.observe(el));
       return;
     }
 
-    // Smooth lerp with optimized factor
+    // Gentler lerp for buttery smooth movement
     const diff = targetZ - currentZ;
     
-    if (Math.abs(diff) > 0.1) {
-      currentZ += diff * 0.1;
-    } else {
-      currentZ = targetZ;
-    }
+    // Use a softer easing factor for natural feel
+    currentZ += diff * 0.05;
 
     // Apply transform (GPU accelerated)
     camera.style.transform = `translate3d(0, 0, ${-currentZ}px)`;
 
-    // Find active project (only check when significant movement)
-    if (Math.abs(diff) > 10) {
-      let newActiveIndex = -1;
-      let closestDist = 500;
+    // Find active project
+    let newActiveIndex = -1;
+    let closestDist = 400;
 
-      for (let i = 0; i < projectZPositions.length; i++) {
-        const dist = Math.abs(currentZ - projectZPositions[i]);
-        if (dist < closestDist) {
-          closestDist = dist;
-          newActiveIndex = i;
-        }
+    for (let i = 0; i < projectZPositions.length; i++) {
+      const dist = Math.abs(currentZ - projectZPositions[i]);
+      if (dist < closestDist) {
+        closestDist = dist;
+        newActiveIndex = i;
       }
+    }
 
-      if (newActiveIndex !== activeProjectIndex) {
-        if (activeProjectIndex >= 0) {
-          projects3D[activeProjectIndex].classList.remove('active');
-        }
-        activeProjectIndex = newActiveIndex;
-        if (activeProjectIndex >= 0) {
-          projects3D[activeProjectIndex].classList.add('active');
-        }
+    if (newActiveIndex !== activeProjectIndex) {
+      if (activeProjectIndex >= 0) {
+        projects3D[activeProjectIndex].classList.remove('active');
+      }
+      activeProjectIndex = newActiveIndex;
+      if (activeProjectIndex >= 0) {
+        projects3D[activeProjectIndex].classList.add('active');
       }
     }
 

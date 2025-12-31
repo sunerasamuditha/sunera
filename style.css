@@ -1001,8 +1001,10 @@ a {
   height: 350px;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  will-change: transform, opacity;
+  will-change: transform;
   contain: layout paint;
+  /* Smooth transition for sliding in AND out */
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .project-3d.left {
@@ -1015,7 +1017,6 @@ a {
 
 .project-3d.active {
   transform: translate3d(-300px, -175px, var(--z)) !important;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-3d-card {
