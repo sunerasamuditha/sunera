@@ -940,6 +940,7 @@ a {
   height: 400vh;
   position: relative;
   background: var(--bg);
+  contain: layout style;
 }
 
 .showcase-sticky {
@@ -953,6 +954,7 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  contain: strict;
 }
 
 .showcase-header {
@@ -984,9 +986,10 @@ a {
   height: 100%;
   position: absolute;
   transform-style: preserve-3d;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   will-change: transform;
   backface-visibility: hidden;
+  contain: layout style;
 }
 
 .project-3d {
@@ -998,7 +1001,8 @@ a {
   height: 350px;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
+  will-change: transform, opacity;
+  contain: layout paint;
 }
 
 .project-3d.left {
@@ -1011,6 +1015,7 @@ a {
 
 .project-3d.active {
   transform: translate3d(-300px, -175px, var(--z)) !important;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-3d-card {
@@ -1018,16 +1023,11 @@ a {
   height: 100%;
   background: var(--card);
   border-radius: var(--radius);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(100, 255, 218, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   overflow: hidden;
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  border: 1px solid rgba(100, 255, 218, 0.15);
   display: flex;
-  transition: transform 0.3s ease;
-  will-change: transform;
-}
-
-.project-3d-card:hover {
-  transform: scale3d(1.02, 1.02, 1);
+  contain: content;
 }
 
 .project-3d-visual {

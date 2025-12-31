@@ -215,78 +215,117 @@ const observer = new IntersectionObserver((entries) => {
 
 revealables.forEach(el => observer.observe(el));
 
-// 3D Showcase Scroll Effect
+// 3D Showcase Scroll Effect (Performance Optimized)
 (function() {
   const showcaseContainer = document.querySelector('.showcase-3d-container');
   const camera = document.querySelector('.showcase-camera');
   const projects3D = document.querySelectorAll('.project-3d');
 
-  if (showcaseContainer && camera && projects3D.length > 0 && window.innerWidth > 1024) {
-    let currentZ = 0;
-    let targetZ = 0;
+  if (!showcaseContainer || !camera || projects3D.length === 0 || window.innerWidth <= 1024) return;
 
-    const projectPositions = [
-      { z: -400, index: 0 },
-      { z: -1200, index: 1 },
-      { z: -2000, index: 2 },
-      { z: -2800, index: 3 },
-      { z: -3600, index: 4 }
-    ];
+  let currentZ = 0;
+  let targetZ = 0;
+  let isRunning = false;
+  let isInView = false;
+  let activeProjectIndex = -1;
+  
+  // Cache values to avoid recalculation
+  let containerTop = 0;
+  let containerHeight = 0;
+  let viewportHeight = window.innerHeight;
+  
+  const projectZPositions = [-400, -1200, -2000, -2800, -3600];
 
-    let activeProjectIndex = -1;
-
-    function lerp(start, end, factor) {
-      return start + (end - start) * factor;
+  // Use IntersectionObserver to only animate when visible
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    isInView = entries[0].isIntersecting;
+    if (isInView && !isRunning) {
+      isRunning = true;
+      requestAnimationFrame(animate);
     }
+  }, { threshold: 0 });
+  
+  visibilityObserver.observe(showcaseContainer);
 
-    function updateCamera() {
-      currentZ = lerp(currentZ, targetZ, 0.08);
-      const z = Math.round(currentZ * 100) / 100;
-      camera.style.transform = `translateZ(${-z}px)`;
+  // Cache dimensions on resize (debounced)
+  let resizeTimer;
+  const updateDimensions = () => {
+    viewportHeight = window.innerHeight;
+    const rect = showcaseContainer.getBoundingClientRect();
+    containerTop = rect.top + window.scrollY;
+    containerHeight = rect.height;
+  };
+  
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateDimensions, 150);
+  });
+  
+  // Initial dimension calculation
+  updateDimensions();
 
-      // Find closest project
-      let closestIndex = -1;
-      let closestDist = Infinity;
-
-      projectPositions.forEach((proj, idx) => {
-        const dist = Math.abs(currentZ - proj.z);
-        if (dist < closestDist) {
-          closestDist = dist;
-          closestIndex = idx;
-        }
-      });
-
-      // Activate closest project
-      if (closestDist < 500 && closestIndex !== activeProjectIndex) {
-        activeProjectIndex = closestIndex;
-        projects3D.forEach(p => p.classList.remove('active'));
-        if (activeProjectIndex >= 0 && projects3D[activeProjectIndex]) {
-          projects3D[activeProjectIndex].classList.add('active');
-        }
-      } else if (closestDist >= 500 && activeProjectIndex !== -1) {
-        projects3D.forEach(p => p.classList.remove('active'));
-        activeProjectIndex = -1;
-      }
-
-      requestAnimationFrame(updateCamera);
-    }
-
-    requestAnimationFrame(updateCamera);
-
-    window.addEventListener('scroll', () => {
-      if (window.innerWidth <= 1024) return;
-
-      const rect = showcaseContainer.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+  // Optimized scroll handler with passive listener
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking && isInView) {
+      scrollTicking = true;
       
-      const scrolled = -rect.top;
-      const totalScrollable = rect.height - viewportHeight;
+      // Calculate progress using cached values
+      const scrollY = window.scrollY;
+      const scrolled = scrollY - containerTop;
+      const totalScrollable = containerHeight - viewportHeight;
       
       let progress = scrolled / totalScrollable;
-      progress = Math.max(0, Math.min(1, progress));
+      progress = progress < 0 ? 0 : progress > 1 ? 1 : progress;
+      
+      targetZ = progress * -4000;
+      scrollTicking = false;
+    }
+  }, { passive: true });
 
-      const maxZ = -4000;
-      targetZ = progress * maxZ;
-    });
+  // Ultra-smooth animation loop
+  function animate() {
+    if (!isInView) {
+      isRunning = false;
+      return;
+    }
+
+    // Smooth lerp with optimized factor
+    const diff = targetZ - currentZ;
+    
+    if (Math.abs(diff) > 0.1) {
+      currentZ += diff * 0.1;
+    } else {
+      currentZ = targetZ;
+    }
+
+    // Apply transform (GPU accelerated)
+    camera.style.transform = `translate3d(0, 0, ${-currentZ}px)`;
+
+    // Find active project (only check when significant movement)
+    if (Math.abs(diff) > 10) {
+      let newActiveIndex = -1;
+      let closestDist = 500;
+
+      for (let i = 0; i < projectZPositions.length; i++) {
+        const dist = Math.abs(currentZ - projectZPositions[i]);
+        if (dist < closestDist) {
+          closestDist = dist;
+          newActiveIndex = i;
+        }
+      }
+
+      if (newActiveIndex !== activeProjectIndex) {
+        if (activeProjectIndex >= 0) {
+          projects3D[activeProjectIndex].classList.remove('active');
+        }
+        activeProjectIndex = newActiveIndex;
+        if (activeProjectIndex >= 0) {
+          projects3D[activeProjectIndex].classList.add('active');
+        }
+      }
+    }
+
+    requestAnimationFrame(animate);
   }
 })();
