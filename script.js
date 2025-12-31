@@ -8,201 +8,357 @@ navList.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => navList.classList.remove('open'));
 });
 
-// Neural Network Particle Animation
+// Neural Network + Circuit Animation (High-Density Neural Interface)
 (function() {
   const canvas = document.getElementById('neural-canvas');
   if (!canvas) return;
   
   const ctx = canvas.getContext('2d');
   const heroSection = document.getElementById('hero');
-  let width, height;
-  let nodes = [];
-  let mouse = { x: null, y: null };
-  let animationId;
+  let w, h, centerX;
   let isVisible = true;
   
-  const config = {
-    nodeCount: 120,
-    connectionDistance: 180,
-    nodeSpeed: 0.25,
-    pulseSpeed: 0.02,
-    accentColor: { r: 100, g: 255, b: 218 },
-    nodeMinSize: 2,
-    nodeMaxSize: 4
+  // Configuration - ENHANCED for better visibility
+  const cfg = {
+    circuitDensity: 180,       // More circuits
+    neuronCount: 100,          // More neurons
+    signalSpeed: 2.8,          // Slightly faster
+    transmissionRate: 0.12,    // More frequent signals
+    colorCircuit: '100, 255, 218',
+    colorNeuron: '120, 200, 255',
+    connectionDistance: 180,   // Neuron connection range
   };
-  
-  function resize() {
-    const rect = heroSection.getBoundingClientRect();
-    width = canvas.width = rect.width;
-    height = canvas.height = rect.height;
-    initNodes();
-  }
-  
-  function initNodes() {
-    nodes = [];
-    for (let i = 0; i < config.nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * config.nodeSpeed,
-        vy: (Math.random() - 0.5) * config.nodeSpeed,
-        size: config.nodeMinSize + Math.random() * (config.nodeMaxSize - config.nodeMinSize),
-        pulse: Math.random() * Math.PI * 2,
-        connections: []
-      });
+
+  let circuits = [];
+  let neurons = [];
+  let signals = [];
+
+  // --- CIRCUIT CLASS (PCB-style traces - now spread across page) ---
+  class Circuit {
+    constructor() {
+      this.path = [];
+      this.side = Math.random() > 0.5 ? 'left' : 'right'; // Circuits from both sides
+      this.generatePath();
+    }
+
+    generatePath() {
+      let x, y, targetX;
+      
+      if (this.side === 'left') {
+        // Start from left, go toward center
+        x = Math.random() * (w * 0.25);
+        targetX = centerX - 100 + Math.random() * 200; // End near center (distributed)
+      } else {
+        // Start from right, go toward center
+        x = w - Math.random() * (w * 0.25);
+        targetX = centerX - 100 + Math.random() * 200;
+      }
+      
+      y = Math.random() * h;
+      x = Math.floor(x / 20) * 20;
+      y = Math.floor(y / 20) * 20;
+      this.path.push({ x, y });
+
+      let steps = Math.floor(Math.random() * 5) + 3;
+      for (let i = 0; i < steps; i++) {
+        if (Math.random() > 0.4) {
+          // Move toward target
+          const dir = this.side === 'left' ? 1 : -1;
+          x += dir * (Math.floor(Math.random() * 4) + 2) * 20;
+        } else {
+          // Move vertical
+          y += (Math.floor(Math.random() * 6) - 3) * 20;
+        }
+        
+        // Clamp to bounds
+        if (this.side === 'left' && x > targetX) x = targetX;
+        if (this.side === 'right' && x < targetX) x = targetX;
+        if (y < 10) y = 10;
+        if (y > h - 10) y = h - 10;
+        
+        this.path.push({ x, y });
+      }
+      
+      this.endX = x;
+      this.endY = y;
+    }
+
+    drawStatic() {
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${cfg.colorCircuit}, 0.12)`; // Brighter traces
+      ctx.lineWidth = 1;
+      ctx.moveTo(this.path[0].x, this.path[0].y);
+      for (let i = 1; i < this.path.length; i++) {
+        ctx.lineTo(this.path[i].x, this.path[i].y);
+      }
+      ctx.stroke();
+      
+      // Brighter terminal pads
+      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.25)`;
+      ctx.fillRect(this.endX - 3, this.endY - 3, 6, 6);
     }
   }
-  
-  function updateNodes() {
-    for (let node of nodes) {
-      // Move nodes
-      node.x += node.vx;
-      node.y += node.vy;
+
+  // --- SIGNAL CLASS (Traveling data packets) ---
+  class Signal {
+    constructor(circuit) {
+      this.circuit = circuit;
+      this.segIdx = 0;
+      this.t = 0;
+      this.alive = true;
+      const p = circuit.path[0];
+      this.x = p.x;
+      this.y = p.y;
+    }
+
+    update() {
+      const p1 = this.circuit.path[this.segIdx];
+      const p2 = this.circuit.path[this.segIdx + 1];
+      if (!p2) {
+        this.fireSynapse();
+        this.alive = false;
+        return;
+      }
+      const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+      const step = cfg.signalSpeed / Math.max(dist, 1);
+      this.t += step;
+      if (this.t >= 1) {
+        this.t = 0;
+        this.segIdx++;
+      } else {
+        this.x = p1.x + (p2.x - p1.x) * this.t;
+        this.y = p1.y + (p2.y - p1.y) * this.t;
+      }
+    }
+
+    draw() {
+      // Brighter, larger signal
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgb(${cfg.colorCircuit})`;
+      ctx.fill();
       
-      // Bounce off edges
-      if (node.x < 0 || node.x > width) node.vx *= -1;
-      if (node.y < 0 || node.y > height) node.vy *= -1;
-      
-      // Keep in bounds
-      node.x = Math.max(0, Math.min(width, node.x));
-      node.y = Math.max(0, Math.min(height, node.y));
-      
-      // Update pulse
-      node.pulse += config.pulseSpeed;
-      
-      // Mouse interaction - gentle attraction
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = mouse.x - node.x;
-        const dy = mouse.y - node.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 200 && dist > 10) {
-          node.vx += (dx / dist) * 0.01;
-          node.vy += (dy / dist) * 0.01;
-          // Limit speed
-          const speed = Math.sqrt(node.vx * node.vx + node.vy * node.vy);
-          if (speed > config.nodeSpeed * 2) {
-            node.vx = (node.vx / speed) * config.nodeSpeed * 2;
-            node.vy = (node.vy / speed) * config.nodeSpeed * 2;
-          }
+      // Glow effect
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.3)`;
+      ctx.fill();
+    }
+
+    fireSynapse() {
+      // Find nearest neuron anywhere near the center zone
+      let target = null;
+      let minDist = 9999;
+      for (let n of neurons) {
+        let d = Math.hypot(n.x - this.x, n.y - this.y);
+        if (d < minDist && d < 400) {
+          minDist = d;
+          target = n;
         }
+      }
+      if (target) {
+        signals.push(new BridgeSignal(this.x, this.y, target));
       }
     }
   }
-  
-  function drawConnections() {
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+
+  // --- BRIDGE SIGNAL CLASS (Circuit to Neuron connection) ---
+  class BridgeSignal {
+    constructor(sx, sy, targetNeuron) {
+      this.sx = sx;
+      this.sy = sy;
+      this.target = targetNeuron;
+      this.t = 0;
+      this.alive = true;
+      // Curved control point for organic feel
+      this.cp1x = sx + (targetNeuron.x - sx) * 0.5 + (Math.random() - 0.5) * 60;
+      this.cp1y = sy + (targetNeuron.y - sy) * 0.3 + (Math.random() - 0.5) * 60;
+    }
+
+    update() {
+      this.t += 0.04;
+      if (this.t >= 1) {
+        this.alive = false;
+        this.target.flash();
+      }
+    }
+
+    draw() {
+      const t = this.t;
+      const invT = 1 - t;
+      const x = (invT * invT * this.sx) + (2 * invT * t * this.cp1x) + (t * t * this.target.x);
+      const y = (invT * invT * this.sy) + (2 * invT * t * this.cp1y) + (t * t * this.target.y);
+
+      // Bright energy particle
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff';
+      ctx.fill();
+      
+      // Glow around particle
+      ctx.beginPath();
+      ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${cfg.colorCircuit}, 0.4)`;
+      ctx.fill();
+
+      // Brighter trace path
+      ctx.beginPath();
+      ctx.moveTo(this.sx, this.sy);
+      ctx.quadraticCurveTo(this.cp1x, this.cp1y, this.target.x, this.target.y);
+      ctx.strokeStyle = `rgba(${cfg.colorCircuit}, ${0.6 * (1 - t)})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  // --- NEURON CLASS (Brain cells distributed around center) ---
+  class Neuron {
+    constructor() {
+      // Neurons distributed around center with some spread
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 50 + Math.random() * (w * 0.4);
+      this.x = centerX + Math.cos(angle) * radius * (Math.random() * 0.5 + 0.5);
+      this.y = h * 0.5 + Math.sin(angle) * (h * 0.4) * (Math.random() * 0.5 + 0.5);
+      
+      // Keep in bounds
+      this.x = Math.max(50, Math.min(w - 50, this.x));
+      this.y = Math.max(50, Math.min(h - 50, this.y));
+      
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.energy = 0;
+      this.baseSize = 2 + Math.random() * 2;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      
+      // Soft boundary - push back toward center zone
+      if (this.x < 50) this.vx = Math.abs(this.vx);
+      if (this.x > w - 50) this.vx = -Math.abs(this.vx);
+      if (this.y < 50) this.vy = Math.abs(this.vy);
+      if (this.y > h - 50) this.vy = -Math.abs(this.vy);
+      
+      if (this.energy > 0) this.energy -= 0.03;
+      if (this.energy < 0) this.energy = 0;
+    }
+
+    flash() {
+      this.energy = 1.5;
+    }
+
+    draw() {
+      const size = this.baseSize + this.energy * 4;
+      
+      // Core neuron - brighter
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${cfg.colorNeuron}, 0.7)`;
+      ctx.fill();
+
+      // Flash effect
+      if (this.energy > 0) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, size + this.energy * 15, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.energy * 0.5})`;
+        ctx.fill();
         
-        if (dist < config.connectionDistance) {
-          const opacity = (1 - dist / config.connectionDistance) * 0.5;
-          
-          // Pulsing connection
-          const pulse = (Math.sin(nodes[i].pulse) + Math.sin(nodes[j].pulse)) / 4 + 0.5;
-          const { r, g, b } = config.accentColor;
-          
+        // Secondary glow
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, size + this.energy * 25, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${cfg.colorCircuit}, ${this.energy * 0.3})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  // --- INITIALIZATION ---
+  function init() {
+    const rect = heroSection.getBoundingClientRect();
+    w = canvas.width = rect.width;
+    h = canvas.height = rect.height;
+    centerX = w / 2;
+
+    circuits = [];
+    neurons = [];
+    signals = [];
+
+    for (let i = 0; i < cfg.circuitDensity; i++) {
+      circuits.push(new Circuit());
+    }
+    for (let i = 0; i < cfg.neuronCount; i++) {
+      neurons.push(new Neuron());
+    }
+  }
+
+  // --- ANIMATION LOOP ---
+  function animate() {
+    if (!isVisible) {
+      requestAnimationFrame(animate);
+      return;
+    }
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+
+    // Draw static circuit traces
+    circuits.forEach(c => c.drawStatic());
+
+    // Spawn new signals more frequently
+    if (Math.random() < cfg.transmissionRate) {
+      const randomCircuit = circuits[Math.floor(Math.random() * circuits.length)];
+      signals.push(new Signal(randomCircuit));
+    }
+
+    // Update and draw neurons with connections
+    for (let i = 0; i < neurons.length; i++) {
+      let n1 = neurons[i];
+      n1.update();
+
+      for (let j = i + 1; j < neurons.length; j++) {
+        let n2 = neurons[j];
+        let d = Math.hypot(n1.x - n2.x, n1.y - n2.y);
+        if (d < cfg.connectionDistance) {
           ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity * pulse})`;
+          ctx.moveTo(n1.x, n1.y);
+          ctx.lineTo(n2.x, n2.y);
+          
+          // Brighter base connections, even brighter when energized
+          let alpha = 0.15 * (1 - d / cfg.connectionDistance);
+          if (n1.energy > 0 || n2.energy > 0) {
+            alpha = 0.5 * (1 - d / cfg.connectionDistance);
+          }
+          
+          ctx.strokeStyle = `rgba(${cfg.colorNeuron}, ${alpha})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
     }
-  }
-  
-  function drawNodes() {
-    for (let node of nodes) {
-      const pulse = (Math.sin(node.pulse) + 1) / 2;
-      const size = node.size * (0.8 + pulse * 0.4);
-      const { r, g, b } = config.accentColor;
-      
-      // Glow
-      const gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, size * 3);
-      gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${0.3 + pulse * 0.2})`);
-      gradient.addColorStop(1, 'rgba(100, 255, 218, 0)');
-      
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, size * 3, 0, Math.PI * 2);
-      ctx.fillStyle = gradient;
-      ctx.fill();
-      
-      // Core
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.7 + pulse * 0.3})`;
-      ctx.fill();
+    neurons.forEach(n => n.draw());
+
+    // Update and draw signals
+    for (let i = signals.length - 1; i >= 0; i--) {
+      let s = signals[i];
+      s.update();
+      s.draw();
+      if (!s.alive) signals.splice(i, 1);
     }
+
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(animate);
   }
-  
-  function drawSignalPulses() {
-    const time = Date.now() * 0.001;
-    
-    // Traveling pulses along connections
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[j].x - nodes[i].x;
-        const dy = nodes[j].y - nodes[i].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        if (dist < config.connectionDistance * 0.7) {
-          // Create traveling pulse
-          const progress = ((time + i * 0.5) % 2) / 2;
-          const px = nodes[i].x + dx * progress;
-          const py = nodes[i].y + dy * progress;
-          
-          const { r, g, b } = config.accentColor;
-          const pulseOpacity = Math.sin(progress * Math.PI) * 0.6;
-          
-          ctx.beginPath();
-          ctx.arc(px, py, 2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${pulseOpacity})`;
-          ctx.fill();
-        }
-      }
-    }
-  }
-  
-  function animate() {
-    if (!isVisible) {
-      animationId = requestAnimationFrame(animate);
-      return;
-    }
-    
-    ctx.clearRect(0, 0, width, height);
-    
-    updateNodes();
-    drawConnections();
-    drawSignalPulses();
-    drawNodes();
-    
-    animationId = requestAnimationFrame(animate);
-  }
-  
-  // Visibility observer for performance
+
+  // Visibility observer
   const observer = new IntersectionObserver((entries) => {
     isVisible = entries[0].isIntersecting;
   }, { threshold: 0 });
   observer.observe(heroSection);
-  
-  // Mouse tracking on entire hero section
-  heroSection.addEventListener('mousemove', (e) => {
-    const rect = heroSection.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  
-  heroSection.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-  
-  // Initialize
-  window.addEventListener('resize', resize);
-  resize();
+
+  // Initialize and start
+  window.addEventListener('resize', init);
+  init();
   animate();
 })();
 
