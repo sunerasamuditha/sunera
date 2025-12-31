@@ -20,13 +20,15 @@ navList.querySelectorAll('a').forEach(link => {
   
   // Configuration - ENHANCED for better visibility
   const cfg = {
-    circuitDensity: 180,       // More circuits
-    neuronCount: 100,          // More neurons
+    circuitDensity: 220,       // More circuits
+    neuronCount: 130,          // More neurons
     signalSpeed: 2.8,          // Slightly faster
-    transmissionRate: 0.12,    // More frequent signals
+    transmissionRate: 0.14,    // Even more frequent signals
     colorCircuit: '100, 255, 218',
     colorNeuron: '120, 200, 255',
-    connectionDistance: 180,   // Neuron connection range
+    connectionDistance: 220,   // Neuron connection range
+    leftBias: 0.2,
+    centerBias: 0.15,
   };
 
   let circuits = [];
@@ -37,14 +39,13 @@ navList.querySelectorAll('a').forEach(link => {
   class Circuit {
     constructor() {
       this.path = [];
-      // Circuits from left, right, OR center
       const rand = Math.random();
-      if (rand < 0.4) {
+      if (rand < cfg.leftBias) {
         this.side = 'left';
-      } else if (rand < 0.8) {
-        this.side = 'right';
+      } else if (rand < cfg.leftBias + cfg.centerBias) {
+        this.side = 'center';
       } else {
-        this.side = 'center'; // 20% of circuits are in the center
+        this.side = 'right'; // Majority lean toward the right half
       }
       this.generatePath();
     }
@@ -236,11 +237,15 @@ navList.querySelectorAll('a').forEach(link => {
   // --- NEURON CLASS (Brain cells distributed around center) ---
   class Neuron {
     constructor() {
-      // Neurons distributed around center with some spread
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 50 + Math.random() * (w * 0.4);
-      this.x = centerX + Math.cos(angle) * radius * (Math.random() * 0.5 + 0.5);
-      this.y = h * 0.5 + Math.sin(angle) * (h * 0.4) * (Math.random() * 0.5 + 0.5);
+      // Neurons concentrated toward the right half for density
+      const rightBase = centerX + Math.random() * (w - centerX);
+      const drift = (Math.random() - 0.5) * 120;
+      this.x = Math.min(w - 40, Math.max(centerX + 30, rightBase + drift));
+      if (Math.random() < 0.15) {
+        this.x = Math.max(40, centerX - Math.random() * (centerX * 0.2));
+      }
+      const verticalBand = h * 0.7;
+      this.y = (h - verticalBand) / 2 + Math.random() * verticalBand;
       
       // Keep in bounds
       this.x = Math.max(50, Math.min(w - 50, this.x));
@@ -271,7 +276,7 @@ navList.querySelectorAll('a').forEach(link => {
     }
 
     draw() {
-      const size = this.baseSize + this.energy * 4;
+      const size = this.baseSize + this.energy * 2.2;
       
       // Core neuron - brighter
       ctx.beginPath();
@@ -282,14 +287,14 @@ navList.querySelectorAll('a').forEach(link => {
       // Flash effect
       if (this.energy > 0) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, size + this.energy * 15, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.energy * 0.5})`;
+        ctx.arc(this.x, this.y, size + this.energy * 8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.energy * 0.2})`;
         ctx.fill();
         
         // Secondary glow
         ctx.beginPath();
-        ctx.arc(this.x, this.y, size + this.energy * 25, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${cfg.colorCircuit}, ${this.energy * 0.3})`;
+        ctx.arc(this.x, this.y, size + this.energy * 12, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${cfg.colorCircuit}, ${this.energy * 0.25})`;
         ctx.fill();
       }
     }
