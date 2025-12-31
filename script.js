@@ -8,6 +8,203 @@ navList.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => navList.classList.remove('open'));
 });
 
+// Neural Network Particle Animation
+(function() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let nodes = [];
+  let mouse = { x: null, y: null };
+  let animationId;
+  let isVisible = true;
+  
+  const config = {
+    nodeCount: 80,
+    connectionDistance: 150,
+    nodeSpeed: 0.3,
+    pulseSpeed: 0.02,
+    accentColor: { r: 100, g: 255, b: 218 },
+    nodeMinSize: 2,
+    nodeMaxSize: 4
+  };
+  
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    width = canvas.width = rect.width;
+    height = canvas.height = rect.height;
+    initNodes();
+  }
+  
+  function initNodes() {
+    nodes = [];
+    for (let i = 0; i < config.nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * config.nodeSpeed,
+        vy: (Math.random() - 0.5) * config.nodeSpeed,
+        size: config.nodeMinSize + Math.random() * (config.nodeMaxSize - config.nodeMinSize),
+        pulse: Math.random() * Math.PI * 2,
+        connections: []
+      });
+    }
+  }
+  
+  function updateNodes() {
+    for (let node of nodes) {
+      // Move nodes
+      node.x += node.vx;
+      node.y += node.vy;
+      
+      // Bounce off edges
+      if (node.x < 0 || node.x > width) node.vx *= -1;
+      if (node.y < 0 || node.y > height) node.vy *= -1;
+      
+      // Keep in bounds
+      node.x = Math.max(0, Math.min(width, node.x));
+      node.y = Math.max(0, Math.min(height, node.y));
+      
+      // Update pulse
+      node.pulse += config.pulseSpeed;
+      
+      // Mouse interaction - gentle attraction
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = mouse.x - node.x;
+        const dy = mouse.y - node.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 200 && dist > 10) {
+          node.vx += (dx / dist) * 0.01;
+          node.vy += (dy / dist) * 0.01;
+          // Limit speed
+          const speed = Math.sqrt(node.vx * node.vx + node.vy * node.vy);
+          if (speed > config.nodeSpeed * 2) {
+            node.vx = (node.vx / speed) * config.nodeSpeed * 2;
+            node.vy = (node.vy / speed) * config.nodeSpeed * 2;
+          }
+        }
+      }
+    }
+  }
+  
+  function drawConnections() {
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < config.connectionDistance) {
+          const opacity = (1 - dist / config.connectionDistance) * 0.5;
+          
+          // Pulsing connection
+          const pulse = (Math.sin(nodes[i].pulse) + Math.sin(nodes[j].pulse)) / 4 + 0.5;
+          const { r, g, b } = config.accentColor;
+          
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity * pulse})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+  
+  function drawNodes() {
+    for (let node of nodes) {
+      const pulse = (Math.sin(node.pulse) + 1) / 2;
+      const size = node.size * (0.8 + pulse * 0.4);
+      const { r, g, b } = config.accentColor;
+      
+      // Glow
+      const gradient = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, size * 3);
+      gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${0.3 + pulse * 0.2})`);
+      gradient.addColorStop(1, 'rgba(100, 255, 218, 0)');
+      
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, size * 3, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Core
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.7 + pulse * 0.3})`;
+      ctx.fill();
+    }
+  }
+  
+  function drawSignalPulses() {
+    const time = Date.now() * 0.001;
+    
+    // Traveling pulses along connections
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[j].x - nodes[i].x;
+        const dy = nodes[j].y - nodes[i].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < config.connectionDistance * 0.7) {
+          // Create traveling pulse
+          const progress = ((time + i * 0.5) % 2) / 2;
+          const px = nodes[i].x + dx * progress;
+          const py = nodes[i].y + dy * progress;
+          
+          const { r, g, b } = config.accentColor;
+          const pulseOpacity = Math.sin(progress * Math.PI) * 0.6;
+          
+          ctx.beginPath();
+          ctx.arc(px, py, 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${pulseOpacity})`;
+          ctx.fill();
+        }
+      }
+    }
+  }
+  
+  function animate() {
+    if (!isVisible) {
+      animationId = requestAnimationFrame(animate);
+      return;
+    }
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    updateNodes();
+    drawConnections();
+    drawSignalPulses();
+    drawNodes();
+    
+    animationId = requestAnimationFrame(animate);
+  }
+  
+  // Visibility observer for performance
+  const observer = new IntersectionObserver((entries) => {
+    isVisible = entries[0].isIntersecting;
+  }, { threshold: 0 });
+  observer.observe(canvas);
+  
+  // Mouse tracking
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  
+  canvas.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+  
+  // Initialize
+  window.addEventListener('resize', resize);
+  resize();
+  animate();
+})();
+
 // Tilt effect for interactive cards
 const tiltItems = document.querySelectorAll('[data-tilt]');
 const maxTilt = 10;
