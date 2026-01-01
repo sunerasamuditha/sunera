@@ -489,64 +489,52 @@ updateStats();
 
 // Experience data
 const experience = {
-  learny: {
-    title: 'Project Manager @ LEARNY',
-    date: 'August 24 - Present',
+  ieee: {
+    title: 'IEEE Technical & Program Leadership',
+    date: '2024 - Present',
     points: [
-      'Led the development of a user-friendly learning platform with instructor dashboards and cohort analytics.',
-      'Integrated multiple data sources and access control, enabling reliable course delivery.',
-      'Coordinated a 4-person team across design, backend, and QA with agile rituals.',
-      'Established A/B content experiments and telemetry for continuous improvement.'
+      '<strong>Project Chair — TensorForge (IEEE CS KDU, 2025)</strong>: Owned roadmap and execution on an extremely tight schedule; delegated technical tasks, tracked milestones, and presented results to stakeholders.',
+      '<strong>Program Lead — Luminary (IEEE CS KDU, 2025)</strong>: Planned program schedule, curated speaker lineup, recruited mentors, and managed attendee engagement and post-event follow-up.',
+      '<strong>Project Chair — Artha CSR (IEEE CS KDU, present)</strong>: Coordinate CSR initiatives, partner outreach, and volunteer teams; oversee on-ground execution and impact monitoring.',
+      '<strong>Project Chair — SkillBridge (IEEE SB KDU, 2025–present)</strong>: Initiated and delivered multiple skill-development sessions; built industry links, developed modules, and supervised assessments.'
     ]
   },
-  drysmart: {
-    title: 'Project Lead @ DrySmart+',
-    date: 'March 24 - Present',
+  national: {
+    title: 'National Coordination & Social Impact',
+    date: '2023 - Present',
     points: [
-      'Built a weather-aware drying system with rain detection and automated cover control.',
-      'Designed energy-aware firmware with telemetry hooks for reliability in varied conditions.',
-      'Led prototyping, testing, and rollout with multidisciplinary contributors.',
-      'Implemented guardrails for safety and remote observability for maintenance.'
+      '<strong>National Coordinator — Ganitha Saviya (STEM, 2024–2025)</strong>: Oversaw national rollout achieving 1,543 seminars across Sri Lanka; built connections with Northern Province and Tamil-speaking districts; developed state-of-the-art dashboard for program data visualization.',
+      '<strong>National Coordinator — Sisu Saviya (Leadership, 2025–present)</strong>: Leadership development resource since 2023; contributed to HNB Central Schools project; currently driving ongoing national rollout and quality assurance.',
+      '<strong>Project Lead — ReGreen Earth / Galle (2023)</strong>: Led project planning and execution for an initiative valued at over LKR 500,000; coordinated volunteers, vendors, and delivered measurable environmental outcomes.',
+      '<strong>District Coordinator — SALE Project (Entrepreneurship, 2023)</strong>: Coordinated and executed a 3-day residential entrepreneurship program; managed logistics, trainers, and participant outcomes.'
     ]
   },
-  rekaira: {
-    title: 'Founder & CCO @ Reka Ira Media',
-    date: 'Oct 23 - Present',
+  corporate: {
+    title: 'Senior Facilitator @ Popcorn Teams',
+    date: '2023 - Present',
     points: [
-      'Launched a studio producing impactful digital and traditional media informed by data.',
-      'Directed creative strategy with measurable performance goals and experimentation.',
-      'Built cross-functional collaborations between designers, developers, and marketers.',
-      'Grew client relationships through insights dashboards and rapid iterations.'
+      'Designed and delivered 20+ successful corporate workshops and team-building programs for diverse organizations.',
+      'Coached leaders on effective communication, collaboration, and measurable performance improvement.',
+      'Collected feedback and iterated curricula to drive continuous improvement and client satisfaction.',
+      'Developed hands-on exercises to strengthen team trust, communication, and alignment with organizational objectives.'
     ]
   },
-  stem: {
-    title: 'National Coordinator, STEM Education @ Sasnaka Sansada',
-    date: 'March 24 - Present',
+  products: {
+    title: 'Product Development & Project Management',
+    date: '2023 - Present',
     points: [
-      'Coordinated the Ganitha Saviya initiative supporting 80k+ students across 25 districts.',
-      'Built dashboards for district progress, educator training, and learner outcomes.',
-      'Standardized feedback loops and analytics to improve program delivery.',
-      'Mentored volunteers and educators on data-driven decision making.'
+      '<strong>Project Manager @ LEARNY (Aug 2024–present)</strong>: Led development of user-friendly learning platform with instructor dashboards and cohort analytics; integrated multiple data sources and access control; coordinated 4-person team with agile rituals.',
+      '<strong>Project Lead @ DrySmart+ (Mar 2024–present)</strong>: Built weather-aware drying system with rain detection and automated cover control; designed energy-aware firmware with telemetry; implemented safety guardrails and remote observability.',
+      '<strong>Founder & CCO @ Reka Ira Media (Oct 2023–present)</strong>: Launched studio producing impactful digital and traditional media; directed creative strategy with measurable performance goals; built cross-functional collaborations; grew client relationships through insights dashboards.'
     ]
   },
-  leader: {
-    title: 'Resource Person, Leadership and Grooming @ Sasnaka Sansada',
-    date: 'April 23 - Present',
+  academic: {
+    title: 'Academic & Institutional Leadership',
+    date: '2024 - Present',
     points: [
-      'Designed leadership training with interactive workshops and measurable takeaways.',
-      'Facilitated sessions that grow teamwork, communication, and personal brand.',
-      'Aligned programs with organizational goals and participant feedback.',
-      'Mentored cohorts to convert learning into actionable plans.'
-    ]
-  },
-  popcorn: {
-    title: 'Facilitator @ Popcorn Teams',
-    date: 'Sept 23 - Present',
-    points: [
-      'Delivered corporate training focused on team performance and collaboration.',
-      'Developed hands-on exercises to strengthen communication and trust.',
-      'Provided feedback loops that map to organizational objectives.',
-      'Partnered with clients to tailor facilitation to their teams.'
+      '<strong>Committee Head — Skill Development & Training (MCPPA, 2024)</strong>: Initiated and led discussions on academic–extracurricular balance and a code of ethics; designed training curricula, coordinated trainers and logistics, and measured participant outcomes.',
+      '<strong>Faculty Coordinator — Faculty of Computing (KDU, 2024–present)</strong>: Coordinate faculty–student activities, organize academic events and seminars, and handle administrative communications.',
+      '<strong>Co-coordinator — Katina Maha Magalya / Galle (2023)</strong>: Supported planning and logistics for a large social and cultural event; managed stakeholder liaison and volunteer assignments during execution.'
     ]
   }
 };
@@ -571,7 +559,7 @@ expTabs.forEach(tab => {
     renderExperience(tab.dataset.role);
   });
 });
-renderExperience('learny');
+renderExperience('ieee');
 
 // Reveal on scroll
 const revealables = [
