@@ -931,6 +931,8 @@ a {
   backface-visibility: hidden;
   will-change: transform;
   contain: layout paint;
+  content-visibility: auto;
+  contain-intrinsic-size: 350px 600px;
   /* Smooth transition for sliding in AND out */
   transition: transform 1s cubic-bezier(0.25, 1, 0.25, 1);
 }
@@ -1048,6 +1050,42 @@ a {
   .showcase-header h2 { font-size: 2rem; }
   .project-3d-content h3 { font-size: 1.25rem; }
   .floating-icon { font-size: 3rem; }
+}
+
+/* =============================== */
+/* Reduced Motion Accessibility    */
+/* =============================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .parallax,
+  [data-parallax] {
+    transform: none !important;
+  }
+  .showcase-3d-container { height: auto; }
+  .showcase-sticky {
+    position: relative;
+    height: auto;
+    perspective: none;
+  }
+  .showcase-world,
+  .showcase-camera,
+  .project-3d {
+    transform: none !important;
+    will-change: auto;
+  }
+  .project-3d {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto 40px;
+  }
 }
 
 /* ============================= */

@@ -17,6 +17,7 @@ navList.querySelectorAll('a').forEach(link => {
   const heroSection = document.getElementById('hero');
   let w, h, centerX;
   let isVisible = true;
+  let running = false;
   
   // Configuration - ENHANCED for better visibility
   const cfg = {
@@ -322,7 +323,7 @@ navList.querySelectorAll('a').forEach(link => {
   // --- ANIMATION LOOP ---
   function animate() {
     if (!isVisible) {
-      requestAnimationFrame(animate);
+      running = false;
       return;
     }
 
@@ -380,12 +381,17 @@ navList.querySelectorAll('a').forEach(link => {
   // Visibility observer
   const observer = new IntersectionObserver((entries) => {
     isVisible = entries[0].isIntersecting;
+    if (isVisible && !running) {
+      running = true;
+      requestAnimationFrame(animate);
+    }
   }, { threshold: 0 });
   observer.observe(heroSection);
 
   // Initialize and start
   window.addEventListener('resize', init);
   init();
+  running = true;
   animate();
 })();
 
@@ -413,11 +419,21 @@ tiltItems.forEach(card => {
 const cursorGlow = document.querySelector('.cursor-glow');
 const progressBar = document.querySelector('.scroll-progress');
 
+let cursorRAF = false;
+let cursorX = 0, cursorY = 0;
 window.addEventListener('pointermove', (e) => {
   if (!cursorGlow) return;
-  cursorGlow.style.left = `${e.clientX}px`;
-  cursorGlow.style.top = `${e.clientY}px`;
-});
+  cursorX = e.clientX;
+  cursorY = e.clientY;
+  if (!cursorRAF) {
+    cursorRAF = true;
+    requestAnimationFrame(() => {
+      cursorGlow.style.left = `${cursorX}px`;
+      cursorGlow.style.top = `${cursorY}px`;
+      cursorRAF = false;
+    });
+  }
+}, { passive: true });
 
 const updateProgress = () => {
   if (!progressBar) return;
@@ -426,31 +442,39 @@ const updateProgress = () => {
   const pct = scrollable > 0 ? (scrolled / scrollable) * 100 : 0;
   progressBar.style.width = `${pct}%`;
 };
-window.addEventListener('scroll', updateProgress);
 updateProgress();
 
 // Parallax background motion
 const parallaxLayers = document.querySelectorAll('.parallax');
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  parallaxLayers.forEach((layer, idx) => {
-    const depth = (idx + 1) * 10;
-    layer.style.transform = `translate3d(0, ${scrollY / depth}px, 0)`;
-  });
-});
 
 // Parallax for foreground elements
 const parallaxItems = document.querySelectorAll('[data-parallax]');
 const runParallax = () => {
   const scrollY = window.scrollY;
+  parallaxLayers.forEach((layer, idx) => {
+    const depth = (idx + 1) * 10;
+    layer.style.transform = `translate3d(0, ${scrollY / depth}px, 0)`;
+  });
   parallaxItems.forEach((item) => {
     const depth = Number(item.dataset.parallax) || 24;
     const offset = scrollY / depth;
     item.style.transform = `translate3d(0, ${offset}px, 0)`;
   });
 };
-window.addEventListener('scroll', runParallax);
 runParallax();
+
+// Coalesced scroll handler
+let scrollQueued = false;
+window.addEventListener('scroll', () => {
+  if (!scrollQueued) {
+    scrollQueued = true;
+    requestAnimationFrame(() => {
+      updateProgress();
+      runParallax();
+      scrollQueued = false;
+    });
+  }
+}, { passive: true });
 
 // Magnetic buttons
 const magnetics = document.querySelectorAll('.magnetic');
