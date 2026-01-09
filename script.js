@@ -3,6 +3,21 @@ const navToggle = document.querySelector('.nav-toggle');
 const navList = document.querySelector('.nav-list');
 navToggle.addEventListener('click', () => navList.classList.toggle('open'));
 
+// Enhanced Name Interaction
+(function() {
+  const nameDisplay = document.querySelector('.name-display');
+  if (!nameDisplay) return;
+  
+  nameDisplay.addEventListener('mouseenter', function() {
+    this.style.transform = 'scale(1.02)';
+    this.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+  
+  nameDisplay.addEventListener('mouseleave', function() {
+    this.style.transform = 'scale(1)';
+  });
+})();
+
 // Close nav on link click (mobile)
 navList.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => navList.classList.remove('open'));

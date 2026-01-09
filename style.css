@@ -208,6 +208,114 @@ a {
   position: relative;
 }
 
+/* Name Display Styling */
+.name-reveal {
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.name-display {
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 700;
+  line-height: 0.95;
+  margin: 0;
+  letter-spacing: -0.03em;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name-first,
+.name-last {
+  display: block;
+  background: linear-gradient(135deg, var(--accent) 0%, rgba(100, 255, 218, 0.5) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  animation: nameReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.name-first {
+  animation-delay: 0.2s;
+}
+
+.name-last {
+  animation-delay: 0.5s;
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  padding-left: 4px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes nameReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) rotateX(20deg);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+    filter: blur(0);
+  }
+}
+
+.name-display::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--accent) 0%, rgba(100, 255, 218, 0.3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  animation: glitchPulse 4s infinite;
+  pointer-events: none;
+}
+
+@keyframes glitchPulse {
+  0%, 90%, 100% { opacity: 0; }
+  92% { opacity: 0.8; transform: translate(-2px, 2px); }
+  94% { opacity: 0; transform: translate(2px, -2px); }
+  96% { opacity: 0.8; transform: translate(-1px, -1px); }
+}
+
+.name-underline {
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  box-shadow: 0 0 20px var(--accent);
+  animation: underlineExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.8s;
+  margin-top: 12px;
+}
+
+@keyframes underlineExpand {
+  to { width: 180px; }
+}
+
+.glitch-text {
+  position: relative;
+  animation: subtleGlitch 8s infinite;
+}
+
+@keyframes subtleGlitch {
+  0%, 95%, 100% { transform: translate(0); }
+  96% { transform: translate(-1px, 1px); opacity: 0.9; }
+  97% { transform: translate(1px, -1px); opacity: 1; }
+  98% { transform: translate(0); }
+}
+
 .hero-content h1 {
   font-size: clamp(2.6rem, 6vw, 3.8rem);
   margin: 12px 0;
