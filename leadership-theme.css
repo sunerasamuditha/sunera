@@ -1,0 +1,948 @@
+/* ============================================== */
+/* LEADERSHIP THEME - Warm, Elegant, Human-Centered */
+/* A completely different personality from technical */
+/* ============================================== */
+
+/* Leadership Theme Variables - Warm Gold & Cream Palette */
+body.leadership-theme {
+  --bg: #1a1512;
+  --bg-secondary: #2d2420;
+  --panel: rgba(45, 36, 32, 0.95);
+  --card: rgba(35, 28, 24, 0.9);
+  --text: #f5ebe0;
+  --muted: #c4b5a5;
+  --accent: #d4a574;
+  --accent-secondary: #e8c090;
+  --accent-glow: rgba(212, 165, 116, 0.6);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --radius: 24px;
+  --gradient-warm: linear-gradient(135deg, #d4a574 0%, #e8c090 50%, #f5d4a8 100%);
+}
+
+/* Base Overrides for Leadership Theme */
+body.leadership-theme {
+  background: radial-gradient(ellipse at 30% 20%, rgba(212, 165, 116, 0.08), transparent 40%),
+    radial-gradient(ellipse at 70% 80%, rgba(232, 192, 144, 0.05), transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(45, 36, 32, 1), #1a1512);
+  font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+}
+
+body.leadership-theme .background-shell {
+  background: linear-gradient(180deg, rgba(26, 21, 18, 0.95), rgba(45, 36, 32, 0.8));
+}
+
+body.leadership-theme .parallax {
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.03), transparent 50%);
+}
+
+body.leadership-theme .scanline {
+  background-image: none;
+  background: radial-gradient(ellipse at center, rgba(212, 165, 116, 0.02), transparent 70%);
+  opacity: 0.4;
+}
+
+/* Cursor Glow - Warm Golden */
+body.leadership-theme .cursor-glow {
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.5), transparent 50%);
+  filter: blur(50px);
+}
+
+/* Scroll Progress - Golden */
+body.leadership-theme .scroll-progress {
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Header - Elegant & Refined */
+body.leadership-theme .site-header {
+  background: rgba(26, 21, 18, 0.85);
+  border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+  backdrop-filter: blur(15px);
+}
+
+body.leadership-theme .logo-mark .dot {
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+body.leadership-theme .logo-mark .word {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+}
+
+body.leadership-theme .nav-list a {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+body.leadership-theme .nav-list a:hover,
+body.leadership-theme .nav-list a:focus {
+  background: rgba(212, 165, 116, 0.1);
+  color: var(--accent);
+}
+
+body.leadership-theme .nav-toggle {
+  border-color: rgba(212, 165, 116, 0.4);
+}
+
+/* Hero Section - Inspirational Leader */
+body.leadership-theme .hero {
+  min-height: 100vh;
+}
+
+body.leadership-theme .hero-grid {
+  background-image:
+    radial-gradient(circle at 2px 2px, rgba(212, 165, 116, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+}
+
+body.leadership-theme #neural-canvas {
+  display: none;
+}
+
+body.leadership-theme .name-display {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+body.leadership-theme .name-first,
+body.leadership-theme .name-last {
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.leadership-theme .name-last {
+  background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+body.leadership-theme .name-underline {
+  background: linear-gradient(90deg, var(--accent), transparent);
+  box-shadow: 0 0 25px var(--accent-glow);
+}
+
+body.leadership-theme .name-display::before {
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+body.leadership-theme .glitch-text {
+  animation: none;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+}
+
+body.leadership-theme .hero .eyebrow {
+  color: var(--accent);
+  font-style: italic;
+  letter-spacing: 0.08em;
+}
+
+body.leadership-theme .hero .lede {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+/* Floating Badge - Elegant */
+body.leadership-theme .floating-badge {
+  background: rgba(212, 165, 116, 0.08);
+  border: 1px solid rgba(212, 165, 116, 0.25);
+  animation: gentleFloat 8s ease-in-out infinite alternate;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+
+/* Buttons - Sophisticated Gold */
+body.leadership-theme .btn {
+  border-radius: 30px;
+  border: 1px solid rgba(212, 165, 116, 0.5);
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+body.leadership-theme .btn.primary {
+  background: var(--gradient-warm);
+  color: #1a1512;
+  box-shadow: 0 10px 40px rgba(212, 165, 116, 0.3);
+}
+
+body.leadership-theme .btn.primary:hover {
+  box-shadow: 0 15px 50px rgba(212, 165, 116, 0.45);
+}
+
+body.leadership-theme .btn.ghost {
+  background: rgba(212, 165, 116, 0.08);
+}
+
+body.leadership-theme .btn.ghost:hover {
+  background: rgba(212, 165, 116, 0.15);
+}
+
+/* Meta Cards - Warm Elegance */
+body.leadership-theme .meta-card {
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+  border-radius: var(--radius);
+}
+
+body.leadership-theme .meta-label {
+  color: var(--accent);
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+}
+
+/* Chips & Pills - Gold Accents */
+body.leadership-theme .chip {
+  background: rgba(212, 165, 116, 0.12);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  color: var(--accent);
+  font-family: "Space Grotesk", sans-serif;
+}
+
+body.leadership-theme .pill {
+  border-color: rgba(212, 165, 116, 0.3);
+  color: var(--accent);
+  background: rgba(212, 165, 116, 0.08);
+}
+
+/* Floating Card - Hero Visual */
+body.leadership-theme .floating-card {
+  background: linear-gradient(160deg, rgba(212, 165, 116, 0.12), rgba(35, 28, 24, 0.95));
+  border: 1px solid rgba(212, 165, 116, 0.25);
+  animation: gentleFloat 12s ease-in-out infinite;
+}
+
+/* Section Headers - Refined Typography */
+body.leadership-theme .section-kicker {
+  color: var(--accent);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+}
+
+body.leadership-theme .section h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+}
+
+body.leadership-theme .section-desc {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+/* Signal Board - Leadership Achievements */
+body.leadership-theme .signal-card {
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+  border-radius: var(--radius);
+}
+
+body.leadership-theme .signal-card h3 {
+  font-family: "Playfair Display", serif;
+}
+
+body.leadership-theme .signal-top .light {
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+body.leadership-theme .signal-metrics strong {
+  color: var(--accent);
+}
+
+/* About Section - Personal Story */
+body.leadership-theme .about-copy {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+body.leadership-theme .about-copy .intro-text {
+  font-family: "Playfair Display", serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.9;
+}
+
+body.leadership-theme .philosophy-box {
+  background: rgba(212, 165, 116, 0.06);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+body.leadership-theme .philosophy-box h4 {
+  font-family: "Playfair Display", serif;
+  color: var(--accent);
+}
+
+body.leadership-theme .bullet-grid li {
+  background: rgba(212, 165, 116, 0.05);
+  border: 1px solid rgba(212, 165, 116, 0.1);
+}
+
+/* Timeline - Elegant Markers */
+body.leadership-theme .timeline {
+  border-left: 2px solid rgba(212, 165, 116, 0.4);
+}
+
+body.leadership-theme .timeline-item .dot {
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+body.leadership-theme .timeline .label {
+  font-family: "Playfair Display", serif;
+}
+
+/* Stats Row */
+body.leadership-theme .stats-row .stat-number {
+  color: var(--accent);
+  font-family: "Playfair Display", serif;
+}
+
+/* Holo Cards - Warm Gradient */
+body.leadership-theme .holo-card {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(35, 28, 24, 0.95));
+  border: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+body.leadership-theme .holo-card h3 {
+  font-family: "Playfair Display", serif;
+}
+
+body.leadership-theme .holo-card .sparkline {
+  background: linear-gradient(180deg, rgba(212, 165, 116, 0.1), transparent);
+}
+
+body.leadership-theme .holo-card .sparkline::after {
+  border-color: rgba(212, 165, 116, 0.2);
+  box-shadow: inset 0 0 30px rgba(212, 165, 116, 0.05);
+}
+
+/* Experience Section - Professional */
+body.leadership-theme .experience-shell {
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+body.leadership-theme .exp-nav {
+  background: rgba(26, 21, 18, 0.95);
+  border-right: 1px solid rgba(212, 165, 116, 0.1);
+}
+
+body.leadership-theme .exp-tab {
+  border-bottom: 1px solid rgba(212, 165, 116, 0.08);
+}
+
+body.leadership-theme .exp-tab:hover {
+  background: rgba(212, 165, 116, 0.04);
+}
+
+body.leadership-theme .exp-tab.active {
+  background: rgba(212, 165, 116, 0.08);
+  border-left: 3px solid var(--accent);
+}
+
+body.leadership-theme .exp-tab.active .exp-tab-role {
+  color: var(--accent);
+}
+
+body.leadership-theme .exp-badge {
+  background: rgba(212, 165, 116, 0.15);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  color: var(--accent);
+}
+
+body.leadership-theme .exp-title {
+  font-family: "Playfair Display", serif;
+}
+
+body.leadership-theme .exp-points li::marker {
+  color: var(--accent);
+}
+
+body.leadership-theme .exp-stats {
+  border-top: 1px solid rgba(212, 165, 116, 0.12);
+}
+
+body.leadership-theme .exp-stat {
+  background: rgba(212, 165, 116, 0.06);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+body.leadership-theme .exp-stat-value {
+  color: var(--accent);
+  font-family: "Playfair Display", serif;
+}
+
+/* Projects 3D Section */
+body.leadership-theme .showcase-3d-container {
+  background: var(--bg);
+}
+
+body.leadership-theme .project-3d-card {
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+body.leadership-theme .project-3d-tag {
+  color: var(--accent);
+}
+
+body.leadership-theme .project-3d-content h3 {
+  font-family: "Playfair Display", serif;
+}
+
+body.leadership-theme .project-3d-tech span {
+  background: rgba(212, 165, 116, 0.08);
+  border: 1px solid rgba(212, 165, 116, 0.25);
+  color: var(--accent);
+}
+
+body.leadership-theme .floating-icon {
+  filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.4));
+}
+
+/* Labs Section */
+body.leadership-theme .lab-card {
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+body.leadership-theme .lab-card::after {
+  background: radial-gradient(circle at 30% 20%, rgba(212, 165, 116, 0.1), transparent 50%);
+}
+
+body.leadership-theme .lab-card h3 {
+  font-family: "Playfair Display", serif;
+}
+
+/* Stack Section - Icon Belt */
+body.leadership-theme .icon-circle {
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  background: var(--card);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 165, 116, 0.08);
+}
+
+body.leadership-theme .icon-circle:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(212, 165, 116, 0.2);
+}
+
+body.leadership-theme .icon-circle img {
+  filter: invert(1) sepia(1) saturate(0.8) hue-rotate(340deg);
+}
+
+/* Contact Section */
+body.leadership-theme .contact-form {
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+body.leadership-theme .contact-form input,
+body.leadership-theme .contact-form textarea {
+  border: 1px solid rgba(212, 165, 116, 0.2);
+  background: rgba(45, 36, 32, 0.7);
+}
+
+body.leadership-theme .contact-form input:focus,
+body.leadership-theme .contact-form textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 15px rgba(212, 165, 116, 0.2);
+}
+
+/* Giant Footer */
+body.leadership-theme .giant-footer {
+  border-top: 1px solid rgba(212, 165, 116, 0.2);
+  background: linear-gradient(180deg, var(--bg), rgba(26, 21, 18, 1));
+}
+
+body.leadership-theme .footer-brand h4 .accent {
+  color: var(--accent);
+}
+
+body.leadership-theme .contact-email {
+  color: var(--accent);
+}
+
+body.leadership-theme .contact-email:hover {
+  color: var(--text);
+}
+
+body.leadership-theme .footer-col a:hover {
+  color: var(--accent);
+}
+
+body.leadership-theme .giant-text {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.9) 0%, rgba(232, 192, 144, 0.5) 50%, rgba(26, 21, 18, 0.8) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 60px rgba(212, 165, 116, 0.15));
+}
+
+body.leadership-theme .footer-bottom {
+  border-top: 1px solid rgba(212, 165, 116, 0.1);
+}
+
+/* ================================== */
+/* Theme Toggle Button - Fixed Corner */
+/* ================================== */
+.theme-toggle-container {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.theme-toggle-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid rgba(100, 255, 218, 0.4);
+  background: rgba(10, 25, 47, 0.9);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  position: relative;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 50px rgba(100, 255, 218, 0.3);
+  border-color: rgba(100, 255, 218, 0.6);
+}
+
+.theme-toggle-btn .icon-tech,
+.theme-toggle-btn .icon-leader {
+  position: absolute;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle-btn .icon-tech {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.theme-toggle-btn .icon-leader {
+  opacity: 0;
+  transform: translateY(20px) scale(0.5);
+}
+
+body.leadership-theme .theme-toggle-btn {
+  border-color: rgba(212, 165, 116, 0.4);
+  background: rgba(26, 21, 18, 0.9);
+}
+
+body.leadership-theme .theme-toggle-btn:hover {
+  box-shadow: 0 15px 50px rgba(212, 165, 116, 0.3);
+  border-color: rgba(212, 165, 116, 0.6);
+}
+
+body.leadership-theme .theme-toggle-btn .icon-tech {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.5);
+}
+
+body.leadership-theme .theme-toggle-btn .icon-leader {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.theme-toggle-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  background: rgba(10, 25, 47, 0.8);
+  padding: 6px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.theme-toggle-container:hover .theme-toggle-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+body.leadership-theme .theme-toggle-label {
+  background: rgba(26, 21, 18, 0.8);
+  border-color: rgba(212, 165, 116, 0.2);
+}
+
+/* ======================================= */
+/* Leadership Canvas - Organic Particles   */
+/* ======================================= */
+#leadership-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+body.leadership-theme #leadership-canvas {
+  opacity: 1;
+}
+
+body.leadership-theme #neural-canvas {
+  opacity: 0;
+}
+
+/* ======================================== */
+/* Leadership-Specific Content Sections    */
+/* ======================================== */
+
+/* Leadership Hero Alternative Content */
+.leadership-hero-content {
+  display: none;
+}
+
+body.leadership-theme .leadership-hero-content {
+  display: block;
+}
+
+body.leadership-theme .tech-hero-content {
+  display: none;
+}
+
+/* Leadership Signal Board - Impact Metrics */
+.leadership-signal-content {
+  display: none;
+}
+
+body.leadership-theme .leadership-signal-content {
+  display: block;
+}
+
+body.leadership-theme .tech-signal-content {
+  display: none;
+}
+
+/* Leadership About Section */
+.leadership-about-content {
+  display: none;
+}
+
+body.leadership-theme .leadership-about-content {
+  display: block;
+}
+
+body.leadership-theme .tech-about-content {
+  display: none;
+}
+
+/* Leadership Labs - Initiatives */
+.leadership-labs-content {
+  display: none;
+}
+
+body.leadership-theme .leadership-labs-content {
+  display: block;
+}
+
+body.leadership-theme .tech-labs-content {
+  display: none;
+}
+
+/* Leadership Stack - Soft Skills */
+.leadership-stack-content {
+  display: none;
+}
+
+body.leadership-theme .leadership-stack-content {
+  display: block;
+}
+
+body.leadership-theme .tech-stack-content {
+  display: none;
+}
+
+/* Leadership Contact Section */
+.leadership-contact-header {
+  display: none;
+}
+
+body.leadership-theme .leadership-contact-header {
+  display: block;
+}
+
+body.leadership-theme .tech-contact-header {
+  display: none;
+}
+
+/* ================================== */
+/* Responsive Adjustments             */
+/* ================================== */
+@media (max-width: 900px) {
+  .theme-toggle-container {
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .theme-toggle-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  body.leadership-theme .exp-tab.active {
+    border-left: none;
+    border-bottom: 3px solid var(--accent);
+  }
+}
+
+/* ================================== */
+/* Theme Transition Animations        */
+/* ================================== */
+body {
+  transition: background 0.6s ease, color 0.3s ease;
+}
+
+.site-header,
+.cursor-glow,
+.scroll-progress,
+.btn,
+.chip,
+.pill,
+.signal-card,
+.meta-card,
+.holo-card,
+.floating-card,
+.floating-badge,
+.experience-shell,
+.exp-tab,
+.exp-badge,
+.exp-stat,
+.project-3d-card,
+.lab-card,
+.icon-circle,
+.contact-form,
+.giant-footer {
+  transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, color 0.3s ease;
+}
+
+/* Smooth font family transition */
+body,
+h1, h2, h3, h4, h5, h6,
+.name-display,
+.section h2,
+.exp-title,
+.lab-card h3 {
+  transition: font-family 0.1s ease;
+}
+
+/* ================================== */
+/* Leadership Skills Cloud Styles     */
+/* ================================== */
+.skills-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.skill-orb {
+  padding: 16px 28px;
+  border-radius: 50px;
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.25);
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  animation: orbFloat 6s ease-in-out infinite;
+}
+
+.skill-orb:nth-child(odd) {
+  animation-delay: -1s;
+}
+
+.skill-orb:nth-child(3n) {
+  animation-delay: -2.5s;
+}
+
+.skill-orb:hover {
+  transform: translateY(-8px) scale(1.05);
+  background: rgba(212, 165, 116, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 15px 40px rgba(212, 165, 116, 0.25);
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ================================== */
+/* Quote/Philosophy Block             */
+/* ================================== */
+.leadership-quote {
+  text-align: center;
+  padding: 60px 40px;
+  margin: 40px 0;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.06), transparent);
+  border-radius: var(--radius);
+  border: 1px solid rgba(212, 165, 116, 0.1);
+  position: relative;
+}
+
+.leadership-quote::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 6rem;
+  font-family: "Playfair Display", serif;
+  color: rgba(212, 165, 116, 0.15);
+  line-height: 1;
+}
+
+.leadership-quote blockquote {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  line-height: 1.8;
+  margin: 0;
+  color: var(--text);
+}
+
+.leadership-quote cite {
+  display: block;
+  margin-top: 20px;
+  font-family: "Space Grotesk", sans-serif;
+  font-style: normal;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+/* ================================== */
+/* Impact Statistics Grid             */
+/* ================================== */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin: 40px 0;
+}
+
+.impact-stat {
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+  border-radius: var(--radius);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.impact-stat:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 165, 116, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.impact-number {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  line-height: 1.1;
+}
+
+.impact-label {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 8px;
+  display: block;
+}
+
+/* ================================== */
+/* Values/Principles Cards            */
+/* ================================== */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.value-card {
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid rgba(212, 165, 116, 0.15);
+  border-radius: var(--radius);
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 165, 116, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.value-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.value-card h4 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.value-card p {
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -7,8 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="leadership-theme.css" />
 </head>
 <body>
   <div class="background-shell">
@@ -19,6 +20,15 @@
   </div>
   <div class="cursor-glow" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle-container">
+    <button class="theme-toggle-btn" aria-label="Toggle between Technical and Leadership profile" title="Switch Profile">
+      <span class="icon-tech">🔧</span>
+      <span class="icon-leader">👔</span>
+    </button>
+    <span class="theme-toggle-label">Switch Profile</span>
+  </div>
 
   <header class="site-header" id="top">
     <div class="logo-mark" aria-label="Sunera personal logotype">
@@ -42,6 +52,7 @@
   <main>
     <section class="hero section" id="hero">
       <canvas id="neural-canvas" aria-hidden="true"></canvas>
+      <canvas id="leadership-canvas" aria-hidden="true"></canvas>
       <div class="hero-grid" aria-hidden="true" data-parallax="26"></div>
       <div class="hero-content">
         <div class="name-reveal">
@@ -526,5 +537,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="leadership-theme.js"></script>
 </body>
 </html>
