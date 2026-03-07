@@ -318,108 +318,133 @@
       </div>
     </section>
 
-    <!-- Featured Projects 3D Section -->
-    <section class="showcase-3d-container" id="projects">
-      <div class="showcase-sticky">
-        <div class="showcase-header">
-          <p class="section-kicker">04 — Projects</p>
-          <h2>Featured Projects</h2>
-          <p class="section-desc">Scroll to explore my AI/ML work in 3D</p>
-        </div>
-        <div class="showcase-world">
-          <div class="showcase-camera">
-            <!-- Project Card 1 -->
-            <div class="project-3d left" style="--z: -400px" data-index="0">
-              <div class="project-3d-card">
-                <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #0a192f 100%);">
-                  <div class="floating-icon">📚</div>
-                </div>
-                <div class="project-3d-content">
-                  <span class="project-3d-tag">Bootstrap · PHP · SQL</span>
-                  <h3>LEARNY</h3>
-                  <p>Accessible e-learning platform with instructor dashboards, cohort analytics, and adaptive recommendations.</p>
-                  <div class="project-3d-tech">
-                    <span>Analytics</span>
-                    <span>Access Control</span>
-                    <span>A/B Content</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Project Card 2 -->
-            <div class="project-3d right" style="--z: -1200px" data-index="1">
-              <div class="project-3d-card">
-                <div class="project-3d-visual" style="background: linear-gradient(135deg, #0a192f 0%, #64ffda 100%);">
-                  <div class="floating-icon">🌧️</div>
-                </div>
-                <div class="project-3d-content">
-                  <span class="project-3d-tag">IoT · Edge Vision</span>
-                  <h3>DrySmart+</h3>
-                  <p>Weather-aware drying system with rain detection, automated cover control, and telemetry for efficiency.</p>
-                  <div class="project-3d-tech">
-                    <span>Edge AI</span>
-                    <span>Telemetry</span>
-                    <span>Energy Aware</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Project Card 3 -->
-            <div class="project-3d left" style="--z: -2000px" data-index="2">
-              <div class="project-3d-card">
-                <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #112240 100%);">
-                  <div class="floating-icon">📊</div>
-                </div>
-                <div class="project-3d-content">
-                  <span class="project-3d-tag">React · Django</span>
-                  <h3>GS National Dashboard</h3>
-                  <p>Live visibility for a nationwide STEM program: district progress, learner outcomes, and action queues.</p>
-                  <div class="project-3d-tech">
-                    <span>Realtime</span>
-                    <span>Cohort Insights</span>
-                    <span>Gov Data</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Project Card 4 -->
-            <div class="project-3d right" style="--z: -2800px" data-index="3">
-              <div class="project-3d-card">
-                <div class="project-3d-visual" style="background: linear-gradient(135deg, #112240 0%, #64ffda 100%);">
-                  <div class="floating-icon">🧠</div>
-                </div>
-                <div class="project-3d-content">
-                  <span class="project-3d-tag">AI/ML · Computer Vision</span>
-                  <h3>Vision Safety Pipeline</h3>
-                  <p>On-device defect detection with federated fine-tuning, tuned for low light and motion blur.</p>
-                  <div class="project-3d-tech">
-                    <span>Edge AI</span>
-                    <span>Federated</span>
-                    <span>Real-time</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Project Card 5 -->
-            <div class="project-3d left" style="--z: -3600px" data-index="4">
-              <div class="project-3d-card">
-                <div class="project-3d-visual" style="background: linear-gradient(135deg, #64ffda 0%, #1a365d 100%);">
-                  <div class="floating-icon">🎓</div>
-                </div>
-                <div class="project-3d-content">
-                  <span class="project-3d-tag">STEM · Education</span>
-                  <h3>Ganitha Saviya Initiative</h3>
-                  <p>National STEM program supporting 80k+ students across 25 districts with analytics dashboards.</p>
-                  <div class="project-3d-tech">
-                    <span>National Scale</span>
-                    <span>Data-driven</span>
-                    <span>Impact</span>
-                  </div>
-                </div>
-              </div>
+    <!-- Featured Projects - Lens Cascade -->
+    <section class="section projects-cascade" id="projects">
+      <div class="section-header">
+        <p class="section-kicker">04 — Projects</p>
+        <h2>Featured Projects</h2>
+        <p class="section-desc">Production systems built for impact at scale</p>
+      </div>
+
+      <!-- Timeline spine -->
+      <div class="cascade-timeline" aria-hidden="true">
+        <div class="timeline-filament"></div>
+        <span class="timeline-node" data-index="0"></span>
+        <span class="timeline-node" data-index="1"></span>
+        <span class="timeline-node" data-index="2"></span>
+        <span class="timeline-node" data-index="3"></span>
+        <span class="timeline-node" data-index="4"></span>
+      </div>
+
+      <div class="cascade-track">
+        <!-- Card 1: LEARNY -->
+        <article class="cascade-card" data-direction="left" data-index="0">
+          <div class="cascade-img">
+            <img src="images/learny.png" alt="LEARNY e-learning platform screenshot" loading="lazy" decoding="async" width="600" height="400" />
+            <div class="cascade-shimmer" aria-hidden="true"></div>
+          </div>
+          <div class="cascade-content">
+            <span class="cascade-stack">Bootstrap &middot; PHP &middot; SQL</span>
+            <h3>LEARNY</h3>
+            <p>Accessible e-learning platform with instructor dashboards, cohort analytics, and adaptive content recommendations.</p>
+            <div class="cascade-tags">
+              <span>Analytics</span>
+              <span>Access Control</span>
+              <span>A/B Content</span>
             </div>
           </div>
-        </div>
+        </article>
+
+        <!-- Card 2: DrySmart+ -->
+        <article class="cascade-card" data-direction="right" data-index="1">
+          <div class="cascade-content">
+            <span class="cascade-stack">IoT &middot; Edge Vision</span>
+            <h3>DrySmart+</h3>
+            <p>Weather-aware drying system with rain detection, automated cover control, and telemetry for energy efficiency.</p>
+            <div class="cascade-tags">
+              <span>Edge AI</span>
+              <span>Telemetry</span>
+              <span>Energy Aware</span>
+            </div>
+          </div>
+          <div class="cascade-img">
+            <img src="images/drysmart.png" alt="DrySmart+ IoT drying system screenshot" loading="lazy" decoding="async" width="600" height="400" />
+            <div class="cascade-shimmer" aria-hidden="true"></div>
+          </div>
+        </article>
+
+        <!-- Card 3: GS National Dashboard -->
+        <article class="cascade-card" data-direction="left" data-index="2">
+          <div class="cascade-img cascade-img--generated">
+            <div class="cascade-placeholder">
+              <svg viewBox="0 0 100 80" aria-hidden="true">
+                <rect x="10" y="10" width="80" height="55" rx="4" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                <line x1="10" y1="25" x2="90" y2="25" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+                <circle cx="30" cy="48" r="12" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                <rect x="52" y="34" width="30" height="6" rx="2" fill="currentColor" opacity="0.2"/>
+                <rect x="52" y="45" width="22" height="6" rx="2" fill="currentColor" opacity="0.15"/>
+                <rect x="52" y="56" width="26" height="6" rx="2" fill="currentColor" opacity="0.1"/>
+              </svg>
+              <span>Dashboard</span>
+            </div>
+            <div class="cascade-shimmer" aria-hidden="true"></div>
+          </div>
+          <div class="cascade-content">
+            <span class="cascade-stack">React &middot; Django</span>
+            <h3>GS National Dashboard</h3>
+            <p>Live visibility for a nationwide STEM program: district progress, learner outcomes, and action queues.</p>
+            <div class="cascade-tags">
+              <span>Realtime</span>
+              <span>Cohort Insights</span>
+              <span>Gov Data</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: Vision Safety Pipeline -->
+        <article class="cascade-card" data-direction="right" data-index="3">
+          <div class="cascade-content">
+            <span class="cascade-stack">AI/ML &middot; Computer Vision</span>
+            <h3>Vision Safety Pipeline</h3>
+            <p>On-device defect detection with federated fine-tuning, tuned for low light and motion blur.</p>
+            <div class="cascade-tags">
+              <span>Edge AI</span>
+              <span>Federated</span>
+              <span>Real-time</span>
+            </div>
+          </div>
+          <div class="cascade-img cascade-img--generated">
+            <div class="cascade-placeholder">
+              <svg viewBox="0 0 100 80" aria-hidden="true">
+                <ellipse cx="50" cy="40" rx="35" ry="22" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                <circle cx="50" cy="40" r="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                <circle cx="50" cy="40" r="4" fill="currentColor" opacity="0.3"/>
+                <line x1="15" y1="20" x2="85" y2="20" stroke="currentColor" stroke-width="0.5" opacity="0.15"/>
+                <line x1="15" y1="60" x2="85" y2="60" stroke="currentColor" stroke-width="0.5" opacity="0.15"/>
+              </svg>
+              <span>Vision AI</span>
+            </div>
+            <div class="cascade-shimmer" aria-hidden="true"></div>
+          </div>
+        </article>
+
+        <!-- Card 5: Ganitha Saviya Initiative -->
+        <article class="cascade-card" data-direction="left" data-index="4">
+          <div class="cascade-img">
+            <img src="images/stem.png" alt="Ganitha Saviya STEM initiative screenshot" loading="lazy" decoding="async" width="600" height="400" />
+            <div class="cascade-shimmer" aria-hidden="true"></div>
+          </div>
+          <div class="cascade-content">
+            <span class="cascade-stack">STEM &middot; Education</span>
+            <h3>Ganitha Saviya Initiative</h3>
+            <p>National STEM program supporting 80,000+ students across 25 districts with analytics dashboards and data-driven outreach.</p>
+            <div class="cascade-tags">
+              <span>National Scale</span>
+              <span>Data-driven</span>
+              <span>Impact</span>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 

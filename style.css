@@ -955,209 +955,380 @@ a {
   .floating-card { position: relative; right: auto; bottom: auto; margin-top: 20px; }
 }
 
-/* ===================== */
-/* Floating Icon Styles  */
-/* ===================== */
-.floating-icon {
-  font-size: 5rem;
-  animation: floatIcon 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(100, 255, 218, 0.4));
-}
-
-@keyframes floatIcon {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(5deg); }
-}
-
 /* ================================ */
-/* Featured Projects 3D Section    */
+/* Lens Cascade - Projects Section  */
 /* ================================ */
-.showcase-3d-container {
-  height: 400vh;
+
+.projects-cascade {
   position: relative;
-  background: var(--bg);
-  contain: layout style;
+  overflow: visible;
 }
 
-.showcase-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  perspective: 1200px;
-  perspective-origin: center center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  contain: strict;
-}
-
-.showcase-header {
+/* --- Timeline Filament --- */
+.cascade-timeline {
   position: absolute;
-  top: 100px;
-  text-align: center;
-  z-index: 100;
-  width: 100%;
-}
-
-.showcase-header h2 {
-  margin: 0 0 10px;
-  font-size: clamp(2rem, 4vw, 3.1rem);
-}
-
-.showcase-header .section-desc {
-  color: var(--muted);
-}
-
-.showcase-world {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-}
-
-.showcase-camera {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-  backface-visibility: hidden;
-  contain: layout style;
-}
-
-.project-3d {
-  position: absolute;
-  top: 50%;
+  top: 220px;
+  bottom: 120px;
   left: 50%;
-  width: 600px;
-  max-width: 90vw;
-  height: 350px;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  will-change: transform;
-  contain: layout paint;
-  content-visibility: auto;
-  contain-intrinsic-size: 350px 600px;
-  /* Smooth transition for sliding in AND out */
-  transition: transform 1s cubic-bezier(0.25, 1, 0.25, 1);
+  width: 2px;
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
 }
 
-.project-3d.left {
-  transform: translate3d(-800px, -175px, var(--z));
+.timeline-filament {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(100, 255, 218, 0.25) 10%,
+    rgba(100, 255, 218, 0.25) 90%,
+    transparent 100%
+  );
+  border-radius: 2px;
 }
 
-.project-3d.right {
-  transform: translate3d(200px, -175px, var(--z));
+.timeline-node {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(100, 255, 218, 0.12);
+  border: 2px solid rgba(100, 255, 218, 0.25);
+  transition: background 0.5s ease, border-color 0.5s ease,
+              box-shadow 0.5s ease, transform 0.5s ease;
 }
 
-.project-3d.active {
-  transform: translate3d(-300px, -175px, var(--z)) !important;
+.timeline-node[data-index="0"] { top: 10%; }
+.timeline-node[data-index="1"] { top: 30%; }
+.timeline-node[data-index="2"] { top: 50%; }
+.timeline-node[data-index="3"] { top: 70%; }
+.timeline-node[data-index="4"] { top: 90%; }
+
+.timeline-node.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(100, 255, 218, 0.6),
+              0 0 40px rgba(100, 255, 218, 0.2);
+  transform: translate(-50%, -50%) scale(1.3);
 }
 
-.project-3d-card {
-  width: 100%;
-  height: 100%;
+/* --- Cascade Track --- */
+.cascade-track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* --- Individual Card --- */
+.cascade-card {
+  display: flex;
+  align-items: stretch;
   background: var(--card);
+  border: 1px solid rgba(100, 255, 218, 0.12);
   border-radius: var(--radius);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   overflow: hidden;
-  border: 1px solid rgba(100, 255, 218, 0.15);
-  display: flex;
-  contain: content;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+  will-change: transform, opacity, filter;
+  contain: layout style paint;
+  transform: translateZ(0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.6s ease,
+              filter 0.6s ease,
+              border-color 0.5s ease,
+              box-shadow 0.5s ease;
+  opacity: 0;
+  filter: blur(6px);
 }
 
-.project-3d-visual {
-  width: 45%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.cascade-card[data-direction="left"] {
+  transform: translateX(-60px) translateY(30px) rotateY(8deg);
+}
+
+.cascade-card[data-direction="right"] {
+  transform: translateX(60px) translateY(30px) rotateY(-8deg);
+}
+
+/* Revealed state */
+.cascade-card.revealed {
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotateY(0deg);
+  filter: blur(0);
+}
+
+/* --- Focus-Rack Effect --- */
+.cascade-card.focus-sharp {
+  transform: scale(1.02) translateZ(0);
+  border-color: rgba(100, 255, 218, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+              0 0 30px rgba(100, 255, 218, 0.08);
+  filter: blur(0) brightness(1);
+  z-index: 2;
+}
+
+.cascade-card.focus-near {
+  filter: blur(0.8px) brightness(0.92);
+  opacity: 0.88;
+}
+
+.cascade-card.focus-far {
+  filter: blur(1.8px) brightness(0.85);
+  opacity: 0.72;
+}
+
+/* --- Hover override --- */
+.cascade-card:hover {
+  transform: translateY(-8px) scale(1.03) translateZ(0) !important;
+  filter: blur(0) brightness(1) !important;
+  opacity: 1 !important;
+  border-color: rgba(100, 255, 218, 0.4);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5),
+              0 0 40px rgba(100, 255, 218, 0.1);
+  z-index: 3;
+}
+
+/* --- Image Panel --- */
+.cascade-img {
+  flex: 0 0 42%;
   position: relative;
   overflow: hidden;
+  min-height: 280px;
+  background: linear-gradient(135deg, rgba(100, 255, 218, 0.05), rgba(10, 25, 47, 0.95));
 }
 
-.project-3d-content {
-  width: 55%;
+.cascade-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cascade-card:hover .cascade-img img {
+  transform: scale(1.06);
+}
+
+/* --- Placeholder (no-image cards) --- */
+.cascade-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--accent);
+  gap: 12px;
   padding: 30px;
+}
+
+.cascade-placeholder svg {
+  width: 80px;
+  height: 64px;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.cascade-placeholder span {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* --- Holographic Shimmer --- */
+.cascade-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(100, 255, 218, 0.07) 44%,
+    rgba(100, 255, 218, 0.16) 50%,
+    rgba(100, 255, 218, 0.07) 56%,
+    transparent 60%
+  );
+  background-size: 250% 100%;
+  background-position: -100% 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cascade-card.revealed .cascade-shimmer {
+  opacity: 1;
+  animation: shimmerSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+             shimmerLoop 6s ease-in-out 2s infinite;
+}
+
+@keyframes shimmerSweep {
+  from { background-position: -100% 0; }
+  to   { background-position: 200% 0; }
+}
+
+@keyframes shimmerLoop {
+  0%, 100% { background-position: -100% 0; }
+  50%      { background-position: 200% 0; }
+}
+
+/* --- Content Panel --- */
+.cascade-content {
+  flex: 1;
+  padding: 36px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
 }
 
-.project-3d-tag {
+.cascade-stack {
   font-size: 0.8rem;
   color: var(--accent);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
 }
 
-.project-3d-content h3 {
+.cascade-content h3 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: var(--text);
+  line-height: 1.2;
 }
 
-.project-3d-content p {
+.cascade-content p {
   margin: 0;
   color: var(--muted);
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
-.project-3d-tech {
+.cascade-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
-.project-3d-tech span {
+.cascade-tags span {
   background: rgba(100, 255, 218, 0.08);
-  border: 1px solid rgba(100, 255, 218, 0.25);
-  padding: 4px 12px;
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  padding: 5px 14px;
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-/* 3D Responsive */
-@media (max-width: 1024px) {
-  .showcase-3d-container { height: auto; padding: 80px 8vw; }
-  .showcase-sticky { 
-    position: relative; 
-    height: auto; 
-    perspective: none; 
-  }
-  .showcase-header { position: relative; top: 0; margin-bottom: 40px; transform: none; left: auto; }
-  .showcase-world, .showcase-camera { 
-    position: relative; 
-    transform: none !important; 
-    height: auto;
-  }
-  .project-3d {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none !important;
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    margin: 0 auto 40px;
-  }
-  .project-3d-card { flex-direction: column; height: auto; }
-  .project-3d-visual { width: 100%; height: 200px; }
-  .project-3d-content { width: 100%; padding: 24px; }
+.cascade-card:hover .cascade-tags span {
+  background: rgba(100, 255, 218, 0.12);
+  border-color: rgba(100, 255, 218, 0.35);
 }
 
-@media (max-width: 768px) {
-  .showcase-header h2 { font-size: 2rem; }
-  .project-3d-content h3 { font-size: 1.25rem; }
-  .floating-icon { font-size: 3rem; }
+/* Stagger entry animation delays */
+.cascade-card[data-index="0"] { transition-delay: 0s; }
+.cascade-card[data-index="1"] { transition-delay: 0.12s; }
+.cascade-card[data-index="2"] { transition-delay: 0.24s; }
+.cascade-card[data-index="3"] { transition-delay: 0.36s; }
+.cascade-card[data-index="4"] { transition-delay: 0.48s; }
+
+/* Remove delay once revealed so focus transitions are instant */
+.cascade-card.revealed {
+  transition-delay: 0s;
+}
+
+/* ================================ */
+/* Cascade Responsive - Tablet      */
+/* ================================ */
+@media (max-width: 900px) {
+  .cascade-timeline {
+    left: 20px;
+    transform: none;
+  }
+
+  .cascade-track {
+    gap: 40px;
+    padding-left: 30px;
+  }
+
+  .cascade-card,
+  .cascade-card[data-direction="right"] {
+    flex-direction: column !important;
+  }
+
+  .cascade-img {
+    flex: none;
+    min-height: 200px;
+    max-height: 240px;
+  }
+
+  .cascade-content {
+    padding: 24px;
+  }
+
+  .cascade-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .cascade-card[data-direction="left"],
+  .cascade-card[data-direction="right"] {
+    transform: translateY(40px);
+  }
+
+  .cascade-card.revealed {
+    transform: translateY(0);
+  }
+
+  .cascade-card.focus-near,
+  .cascade-card.focus-far {
+    filter: none;
+    opacity: 1;
+  }
+
+  .cascade-card.focus-sharp {
+    transform: none;
+  }
+}
+
+/* ================================ */
+/* Cascade Responsive - Phone       */
+/* ================================ */
+@media (max-width: 600px) {
+  .cascade-timeline {
+    display: none;
+  }
+
+  .cascade-track {
+    padding-left: 0;
+    gap: 28px;
+  }
+
+  .cascade-img {
+    min-height: 180px;
+  }
+
+  .cascade-content {
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .cascade-content h3 {
+    font-size: 1.15rem;
+  }
+
+  .cascade-content p {
+    font-size: 0.88rem;
+  }
 }
 
 /* =============================== */
@@ -1173,26 +1344,26 @@ a {
   [data-parallax] {
     transform: none !important;
   }
-  .showcase-3d-container { height: auto; }
-  .showcase-sticky {
-    position: relative;
-    height: auto;
-    perspective: none;
-  }
-  .showcase-world,
-  .showcase-camera,
-  .project-3d {
+  .cascade-card {
+    opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
+    transition: none !important;
     will-change: auto;
   }
-  .project-3d {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    margin: 0 auto 40px;
+  .cascade-card.focus-near,
+  .cascade-card.focus-far,
+  .cascade-card.focus-sharp {
+    filter: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .cascade-shimmer {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .timeline-node {
+    transition: none !important;
   }
 }
 

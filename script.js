@@ -623,112 +623,110 @@ const observer = new IntersectionObserver((entries) => {
 
 revealables.forEach(el => observer.observe(el));
 
-// 3D Showcase Scroll Effect (Performance Optimized)
+// Lens Cascade - Projects Section
 (function() {
-  const showcaseContainer = document.querySelector('.showcase-3d-container');
-  const camera = document.querySelector('.showcase-camera');
-  const projects3D = document.querySelectorAll('.project-3d');
+  'use strict';
 
-  if (!showcaseContainer || !camera || projects3D.length === 0 || window.innerWidth <= 1024) return;
+  const section = document.querySelector('.projects-cascade');
+  const cards = document.querySelectorAll('.cascade-card');
+  const nodes = document.querySelectorAll('.timeline-node');
 
-  let currentZ = 0;
-  let targetZ = 0;
-  let isRunning = false;
-  let isInView = false;
-  let activeProjectIndex = -1;
-  
-  // Cache values to avoid recalculation
-  let containerTop = 0;
-  let containerHeight = 0;
-  let viewportHeight = window.innerHeight;
-  
-  const projectZPositions = [-400, -1200, -2000, -2800, -3600];
+  if (!section || cards.length === 0) return;
 
-  // Use IntersectionObserver to only animate when visible
-  const visibilityObserver = new IntersectionObserver((entries) => {
-    isInView = entries[0].isIntersecting;
-    if (isInView && !isRunning) {
-      isRunning = true;
-      requestAnimationFrame(animate);
-    }
-  }, { threshold: 0 });
-  
-  visibilityObserver.observe(showcaseContainer);
-
-  // Cache dimensions on resize (debounced)
-  let resizeTimer;
-  const updateDimensions = () => {
-    viewportHeight = window.innerHeight;
-    const rect = showcaseContainer.getBoundingClientRect();
-    containerTop = rect.top + window.scrollY;
-    containerHeight = rect.height;
-  };
-  
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(updateDimensions, 150);
+  // Phase 1: Staggered Reveal via IntersectionObserver
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
   });
-  
-  // Initial dimension calculation
-  updateDimensions();
 
-  // Optimized scroll handler with passive listener
-  let scrollTicking = false;
+  cards.forEach(card => revealObserver.observe(card));
+
+  // Phase 2: Scroll-Linked Depth-of-Field Focus
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isMobile = window.innerWidth < 900;
+  let focusTicking = false;
+  let currentFocusIndex = -1;
+  let isHovering = false;
+
+  function updateFocusRack() {
+    if (prefersReducedMotion || isMobile || isHovering) return;
+
+    const viewportCenter = window.innerHeight / 2;
+    let closestIndex = -1;
+    let closestDistance = Infinity;
+
+    cards.forEach((card, i) => {
+      if (!card.classList.contains('revealed')) return;
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(cardCenter - viewportCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = i;
+      }
+    });
+
+    if (closestIndex === currentFocusIndex) return;
+    currentFocusIndex = closestIndex;
+
+    cards.forEach((card, i) => {
+      card.classList.remove('focus-sharp', 'focus-near', 'focus-far');
+      if (!card.classList.contains('revealed')) return;
+      const distance = Math.abs(i - closestIndex);
+      if (distance === 0) card.classList.add('focus-sharp');
+      else if (distance === 1) card.classList.add('focus-near');
+      else card.classList.add('focus-far');
+    });
+
+    nodes.forEach((node, i) => {
+      node.classList.toggle('active', i === closestIndex);
+    });
+  }
+
   window.addEventListener('scroll', () => {
-    if (!scrollTicking && isInView) {
-      scrollTicking = true;
-      
-      // Calculate progress using cached values
-      const scrollY = window.scrollY;
-      const scrolled = scrollY - containerTop;
-      const totalScrollable = containerHeight - viewportHeight;
-      
-      let progress = scrolled / totalScrollable;
-      progress = progress < 0 ? 0 : progress > 1 ? 1 : progress;
-      
-      targetZ = progress * -4000;
-      scrollTicking = false;
+    if (!focusTicking) {
+      focusTicking = true;
+      requestAnimationFrame(() => {
+        updateFocusRack();
+        focusTicking = false;
+      });
     }
   }, { passive: true });
 
-  // Ultra-smooth animation loop
-  function animate() {
-    if (!isInView) {
-      isRunning = false;
-      return;
-    }
+  // Phase 3: Hover Override
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      isHovering = true;
+      cards.forEach(c => c.classList.remove('focus-sharp', 'focus-near', 'focus-far'));
+    });
+    card.addEventListener('mouseleave', () => {
+      isHovering = false;
+      currentFocusIndex = -1;
+      requestAnimationFrame(updateFocusRack);
+    });
+  });
 
-    // Gentler lerp for buttery smooth movement
-    const diff = targetZ - currentZ;
-    
-    // Use a softer easing factor for natural feel
-    currentZ += diff * 0.05;
-
-    // Apply transform (GPU accelerated)
-    camera.style.transform = `translate3d(0, 0, ${-currentZ}px)`;
-
-    // Find active project
-    let newActiveIndex = -1;
-    let closestDist = 400;
-
-    for (let i = 0; i < projectZPositions.length; i++) {
-      const dist = Math.abs(currentZ - projectZPositions[i]);
-      if (dist < closestDist) {
-        closestDist = dist;
-        newActiveIndex = i;
+  // Resize handling
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      isMobile = window.innerWidth < 900;
+      if (isMobile) {
+        cards.forEach(card => card.classList.remove('focus-sharp', 'focus-near', 'focus-far'));
+        nodes.forEach(node => node.classList.remove('active'));
+        currentFocusIndex = -1;
       }
-    }
+    }, 150);
+  });
 
-    if (newActiveIndex !== activeProjectIndex) {
-      if (activeProjectIndex >= 0) {
-        projects3D[activeProjectIndex].classList.remove('active');
-      }
-      activeProjectIndex = newActiveIndex;
-      if (activeProjectIndex >= 0) {
-        projects3D[activeProjectIndex].classList.add('active');
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }
+  // Initial calculation
+  requestAnimationFrame(updateFocusRack);
 })();

@@ -384,32 +384,82 @@ body.leadership-theme .exp-stat-value {
   font-family: "Playfair Display", serif;
 }
 
-/* Projects 3D Section */
-body.leadership-theme .showcase-3d-container {
-  background: var(--bg);
+/* Projects Cascade Section */
+body.leadership-theme .timeline-filament {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(212, 165, 116, 0.25) 10%,
+    rgba(212, 165, 116, 0.25) 90%,
+    transparent 100%
+  );
 }
 
-body.leadership-theme .project-3d-card {
-  background: var(--card);
-  border: 1px solid rgba(212, 165, 116, 0.15);
+body.leadership-theme .timeline-node {
+  background: rgba(212, 165, 116, 0.12);
+  border-color: rgba(212, 165, 116, 0.25);
 }
 
-body.leadership-theme .project-3d-tag {
+body.leadership-theme .timeline-node.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(212, 165, 116, 0.6),
+              0 0 40px rgba(212, 165, 116, 0.2);
+}
+
+body.leadership-theme .cascade-card {
+  border-color: rgba(212, 165, 116, 0.12);
+}
+
+body.leadership-theme .cascade-card.focus-sharp {
+  border-color: rgba(212, 165, 116, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+              0 0 30px rgba(212, 165, 116, 0.08);
+}
+
+body.leadership-theme .cascade-card:hover {
+  border-color: rgba(212, 165, 116, 0.4) !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5),
+              0 0 40px rgba(212, 165, 116, 0.1);
+}
+
+body.leadership-theme .cascade-stack {
   color: var(--accent);
 }
 
-body.leadership-theme .project-3d-content h3 {
-  font-family: "Playfair Display", serif;
-}
-
-body.leadership-theme .project-3d-tech span {
+body.leadership-theme .cascade-tags span {
   background: rgba(212, 165, 116, 0.08);
-  border: 1px solid rgba(212, 165, 116, 0.25);
+  border-color: rgba(212, 165, 116, 0.2);
   color: var(--accent);
 }
 
-body.leadership-theme .floating-icon {
-  filter: drop-shadow(0 0 20px rgba(212, 165, 116, 0.4));
+body.leadership-theme .cascade-card:hover .cascade-tags span {
+  background: rgba(212, 165, 116, 0.12);
+  border-color: rgba(212, 165, 116, 0.35);
+}
+
+body.leadership-theme .cascade-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(212, 165, 116, 0.07) 44%,
+    rgba(212, 165, 116, 0.16) 50%,
+    rgba(212, 165, 116, 0.07) 56%,
+    transparent 60%
+  );
+  background-size: 250% 100%;
+}
+
+body.leadership-theme .cascade-img {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(35, 28, 24, 0.95));
+}
+
+body.leadership-theme .cascade-placeholder {
+  color: var(--accent);
+}
+
+body.leadership-theme .cascade-content h3 {
+  font-family: "Playfair Display", serif;
 }
 
 /* Labs Section */
@@ -741,7 +791,7 @@ body {
 .exp-tab,
 .exp-badge,
 .exp-stat,
-.project-3d-card,
+.cascade-card,
 .lab-card,
 .icon-circle,
 .contact-form,
